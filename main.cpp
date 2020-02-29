@@ -4,6 +4,8 @@
 
 #include "testContainer.hpp"
 
+#include <iostream>
+
 int main()
 {
     pel::testContainer<int> test;
@@ -13,4 +15,6 @@ int main()
     test.front();
     test.back();
     test.cend();
+
+    return 0;
 }

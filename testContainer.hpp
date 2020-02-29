@@ -4,6 +4,9 @@
 namespace pel
 {
 template<typename ItemType>
+class container_base;
+
+template<typename ItemType>
 class testContainer : container_base<ItemType>
 {
     public:
@@ -11,13 +14,22 @@ class testContainer : container_base<ItemType>
     using DifferenceType = typename container_base<ItemType>::DifferenceType;
     using IteratorType   = typename pel::iterator_base<ItemType>;
 
+    testContainer()
+    {}
+    ~testContainer() override
+    {
+
+    }
+
     constexpr inline ItemType&
+#pragma warning(suppress : 4100)
     at(const SizeType index) override
     {
         static ItemType a = 0;
         return a;
     }
     constexpr inline const ItemType&
+#pragma warning(suppress : 4100)
     at(const SizeType index) const
     {
         static ItemType a = 0;
@@ -51,12 +63,14 @@ class testContainer : container_base<ItemType>
 
     /* Operators */
     constexpr inline ItemType&
+#pragma warning(suppress : 4100)
     operator[](const SizeType index) override
     {
         static ItemType a = 0;
         return a;
     }
     constexpr inline const ItemType&
+#pragma warning(suppress : 4100)
     operator[](const SizeType index) const override
     {
         static ItemType a = 0;
@@ -67,22 +81,22 @@ class testContainer : container_base<ItemType>
     constexpr inline IteratorType
     begin() noexcept override
     {
-        return IteratorType();
+        return IteratorType(0);
     }
     constexpr inline IteratorType
     end() noexcept override
     {
-        return IteratorType();
+        return IteratorType(0);
     }
     constexpr inline const IteratorType
     cbegin() const noexcept override
     {
-        return IteratorType();
+        return IteratorType(0);
     }
     constexpr inline const IteratorType
     cend() const noexcept override
     {
-        return IteratorType();
+        return IteratorType(0);
     }
 
     /* Memory */
@@ -92,9 +106,14 @@ class testContainer : container_base<ItemType>
         return 0;
     }
     constexpr inline bool
-    isEmpty() const noexcept override
+    is_empty() const noexcept override
     {
         return true;
+    }
+    constexpr inline bool
+    is_not_empty() const noexcept override
+    {
+        return false;
     }
 
     /* Misc */
