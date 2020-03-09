@@ -22,58 +22,50 @@ class testContainer : container_base<ItemType>
     }
 
     constexpr inline ItemType&
-#pragma warning(suppress : 4100)
     at(const SizeType index) override
     {
-        static ItemType a = 0;
+        (void)index;
         return a;
     }
     constexpr inline const ItemType&
-#pragma warning(suppress : 4100)
-    at(const SizeType index) const
+    at(const SizeType index) const override
     {
-        static ItemType a = 0;
+        (void)index;
         return a;
     }
 
     constexpr inline ItemType&
     front() override
     {
-        static ItemType a = 0;
         return a;
     }
     constexpr inline ItemType&
     back() override
     {
-        static ItemType a = 0;
         return a;
     }
     constexpr inline const ItemType&
     front() const override
     {
-        static ItemType a = 0;
         return a;
     }
     constexpr inline const ItemType&
     back() const override
     {
-        static ItemType a = 0;
         return a;
     }
 
     /* Operators */
     constexpr inline ItemType&
-#pragma warning(suppress : 4100)
     operator[](const SizeType index) override
     {
-        static ItemType a = 0;
+        (void)index;
         return a;
     }
     constexpr inline const ItemType&
-#pragma warning(suppress : 4100)
     operator[](const SizeType index) const override
     {
-        static ItemType a = 0;
+        (void)index;
         return a;
     }
 
@@ -117,10 +109,14 @@ class testContainer : container_base<ItemType>
     }
 
     /* Misc */
-    constexpr inline std::string
+    inline std::string
     to_string() const override
     {
-        return "Hello World";
+        return std::string("Hello World");
     }
+
+
+    private:
+    ItemType a = 0;
 };
 }        // namespace pel

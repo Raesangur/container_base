@@ -1,0 +1,7 @@
+[
+  {
+    "directory": "E:\\GitHub\\container_base",
+    "command": "\"C:\\WINDOWS\\system32\\CL.exe\" \/c \/ZI \/JMC \/nologo \/Wall \/WX \/diagnostics:column \/Od \/Oy- \/D CODE_ANALYSIS \/D _DEBUG \/D _CONSOLE \/D _UNICODE \/D UNICODE \/EHsc \/RTC1 \/MDd \/GS \/fp:precise \/permissive- \/std:c++latest \/Fo\"Debug\\\\\" \/Gd \/TP  \/wd4191\r\n\/wd4255\r\n\/wd4263\r\n\/wd4264\r\n\/wd4265\r\n\/wd4266\r\n\/wd4287\r\n\/wd4296\r\n\/wd4339\r\n\/wd4342\r\n\/wd4350\r\n\/wd4365\r\n\/wd4370\r\n\/wd4371\r\n\/wd4412\r\n\/wd4426\r\n\/wd4435\r\n\/wd4437\r\n\/wd4444\r\n\/wd4464\r\n\/wd4471\r\n\/wd4472\r\n\/wd4514\r\n\/wd4547\r\n\/wd4548\r\n\/wd4549\r\n\/wd4555\r\n\/wd4557\r\n\/wd4571\r\n\/wd4574\r\n\/wd4577\r\n\/wd4587\r\n\/wd4588\r\n\/wd4598\r\n\/wd4599\r\n\/wd4605\r\n\/wd4608\r\n\/wd4623\r\n\/wd4625\r\n\/wd4626\r\n\/wd4628\r\n\/wd4640\r\n\/wd4647\r\n\/wd4654\r\n\/wd4668\r\n\/wd4682\r\n\/wd4686\r\n\/wd4692\r\n\/wd4710\r\n\/wd4738\r\n\/wd4746\r\n\/wd4749\r\n\/wd4767\r\n\/wd4768\r\n\/wd4777\r\n\/wd4786\r\n\/wd4820\r\n\/wd4822\r\n\/wd4826\r\n\/wd4841\r\n\/wd4842\r\n\/wd4917\r\n\/wd4928\r\n\/wd4931\r\n\/wd4946\r\n\/wd4962\r\n\/wd4986\r\n\/wd4987\r\n\/wd4988\r\n\/wd5022\r\n\/wd5023\r\n\/wd5024\r\n\/wd5025\r\n\/wd5026\r\n\/wd5027\r\n\/wd5029\r\n\/wd5031\r\n\/wd5032\r\n\/wd5034\r\n\/wd5035\r\n\/wd5036\r\n\/wd5038\r\n\/wd5039\r\n\/wd5042\r\n\/wd5045\r\n\/wd5045  \"E:\\GitHub\\container_base\\main.cpp\"",
+    "file": "E:\\GitHub\\container_base\\main.cpp"
+  }
+]

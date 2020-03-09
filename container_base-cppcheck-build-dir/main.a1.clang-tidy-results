@@ -1,0 +1,29 @@
+error: invalid value 'c++20' in '-std=c++20' [clang-diagnostic-error]
+note: use 'c++98' or 'c++03' for 'ISO C++ 1998 with amendments' standard
+note: use 'gnu++98' or 'gnu++03' for 'ISO C++ 1998 with amendments and GNU extensions' standard
+note: use 'c++11' for 'ISO C++ 2011 with amendments' standard
+note: use 'gnu++11' for 'ISO C++ 2011 with amendments and GNU extensions' standard
+note: use 'c++14' for 'ISO C++ 2014 with amendments' standard
+note: use 'gnu++14' for 'ISO C++ 2014 with amendments and GNU extensions' standard
+note: use 'c++17' for 'ISO C++ 2017 with amendments' standard
+note: use 'gnu++17' for 'ISO C++ 2017 with amendments and GNU extensions' standard
+note: use 'c++2a' for 'Working draft for ISO C++ 2020' standard
+note: use 'gnu++2a' for 'Working draft for ISO C++ 2020 with GNU extensions' standard
+E:\GitHub\container_base\main.cpp:9:5: warning: use a trailing return type for this function [modernize-use-trailing-return-type]
+int main()
+~~~ ^
+auto       -> int
+E:\GitHub\container_base\main.cpp:11:5: warning: do not declare C-style arrays, use std::array<> instead [cppcoreguidelines-avoid-c-arrays]
+    int                     b[10] = {0};
+    ^
+E:\GitHub\container_base\main.cpp:11:31: warning: 10 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers]
+    int                     b[10] = {0};
+                              ^
+
+
+
+11331 warnings and 1 error generated.
+Error while processing E:\GitHub\container_base\main.cpp.
+Suppressed 11325 warnings (11325 in non-user code).
+Use -header-filter=.* to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+Found compiler error(s).

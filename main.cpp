@@ -8,6 +8,8 @@
 
 int main()
 {
+    int                     b[10] = {0};
+    pel::iterator_base<int> testIt(&b[0]);
     pel::testContainer<int> test;
     test.at(0);
     test[0];

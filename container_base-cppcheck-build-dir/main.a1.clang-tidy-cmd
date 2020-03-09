@@ -1,0 +1,1 @@
+clang-tidy.exe -checks=*,-clang-analyzer-*,-llvm* E:/GitHub/container_base/main.cpp -- -D_WIN32=1 -D_DEBUG=1 -D_CONSOLE=1 -U__STDC__ -fno-ms-compatibility -std=c++20

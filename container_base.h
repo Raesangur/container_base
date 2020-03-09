@@ -1,10 +1,10 @@
-#pragma once
+#ifndef CONTAINER_BASE_H
+#define CONTAINER_BASE_H
 
 #include "iterator_base.h"
 
 #include <iterator>
 #include <memory>
-#include <stdlib.h>
 #include <string>
 
 namespace pel
@@ -19,8 +19,8 @@ class container_base
 {
     protected:
     container_base()                           = default;
-    container_base(container_base<ItemType>&)  = default;
-    container_base(container_base<ItemType>&&) = default;
+    container_base(container_base<ItemType>&)  noexcept = default;
+    container_base(container_base<ItemType>&&) noexcept = default;
     virtual ~container_base()                  = default;
 
     public:
@@ -59,3 +59,5 @@ class container_base
 };
 
 }        // namespace pel
+
+#endif  /* CONTAINER_BASE_H */
