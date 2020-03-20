@@ -2,5 +2,3 @@ E:\GitHub\container_base\container_base\Debug\container_base.exe
 E:\GitHub\container_base\container_base\Debug\container_base.pdb
 E:\GitHub\container_base\Debug\container_base.exe
 E:\GitHub\container_base\Debug\container_base.pdb
-E:\GitHub\container_base\Debug\container_base.exe.lastcodeanalysissucceeded
-E:\GitHub\container_base\Debug\NativeCodeAnalysis.read.1.tlog

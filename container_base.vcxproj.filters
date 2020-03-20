@@ -15,18 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="container_base.h">
+    <ClInclude Include="src\container_base.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="iterator_base.h">
+    <ClInclude Include="test\testContainer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="testContainer.hpp">
+    <ClInclude Include="src\iterator_base.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
