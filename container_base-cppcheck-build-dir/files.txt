@@ -1,4 +1,0 @@
-main.a1:Debug|Win32:E:/GitHub/container_base/main.cpp
-main.a2:Release|Win32:E:/GitHub/container_base/main.cpp
-main.a3:Debug|x64:E:/GitHub/container_base/main.cpp
-main.a4:Release|x64:E:/GitHub/container_base/main.cpp
