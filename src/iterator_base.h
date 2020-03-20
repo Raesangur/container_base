@@ -111,14 +111,14 @@ iterator_base<ItemType>::ptr() const noexcept
 }
 
 template<typename ItemType>
-[[nodiscard]] inline
-  typename iterator_base<ItemType>::ReferenceType iterator_base<ItemType>::operator*()
+[[nodiscard]] inline typename iterator_base<ItemType>::ReferenceType
+iterator_base<ItemType>::operator*()
 {
     return *m_ptr;
 }
 template<typename ItemType>
-[[nodiscard]] inline
-  typename iterator_base<ItemType>::const_ReferenceType iterator_base<ItemType>::operator*() const
+[[nodiscard]] inline typename iterator_base<ItemType>::const_ReferenceType
+iterator_base<ItemType>::operator*() const
 {
     return *m_ptr;
 }
