@@ -27,12 +27,17 @@ class iterator_base
 
     /*------------------------------------*/
     /* Constructors */
-    iterator_base()                          = delete;
-    iterator_base(iterator_base<ItemType>&)  = default;
-    iterator_base(iterator_base<ItemType>&&) = default;
-    virtual ~iterator_base()                 = default;
+    iterator_base() = delete;
 
-    iterator_base(PointerType pointer) : m_ptr(pointer)
+    iterator_base(const IteratorType&) = default;
+    iterator_base& operator=(const IteratorType&) = default;
+
+    iterator_base(const IteratorType&&) noexcept = default;
+    iterator_base& operator=(IteratorType&&) noexcept = default;
+
+    virtual ~iterator_base() = default;
+
+    explicit iterator_base(PointerType pointer) : m_ptr(pointer)
     {
     }
 
@@ -44,23 +49,22 @@ class iterator_base
     [[nodiscard]] ReferenceType       operator*();
     [[nodiscard]] const_ReferenceType operator*() const;
 
-    [[nodiscard]] operator PointerType() const noexcept;
+    [[nodiscard]] explicit operator PointerType() const noexcept;
 
     /*------------------------------------*/
     /* Arithmetic operators */
-    IteratorType& operator=(const_PointerType other) noexcept;
-    IteratorType& operator=(const_PointerTypeRef other) noexcept;
-    IteratorType& operator=(const_IteratorType& other) noexcept;
-    IteratorType& operator=(IteratorType& other) noexcept;
+    iterator_base& operator=(const_PointerType other) noexcept;
+    iterator_base& operator=(const_PointerTypeRef other) noexcept;
+    iterator_base& operator=(IteratorType& other) noexcept;
 
     [[nodiscard]] virtual IteratorType operator+(DifferenceType rhs) const;
     virtual IteratorType               operator++();
-    virtual IteratorType               operator++(int);
+    virtual const IteratorType         operator++(int);
     virtual IteratorType               operator+=(DifferenceType rhs);
 
     [[nodiscard]] virtual IteratorType operator-(DifferenceType rhs) const;
     virtual IteratorType               operator--();
-    virtual IteratorType               operator--(int);
+    virtual const IteratorType         operator--(int);
     virtual IteratorType               operator-=(DifferenceType rhs);
 
     /*------------------------------------*/
@@ -132,23 +136,28 @@ template<typename ItemType>
 /*------------------------------------*/
 /* Arithmetic operators */
 template<typename ItemType>
-inline typename iterator_base<ItemType>::IteratorType&
+inline iterator_base<ItemType>&
 iterator_base<ItemType>::operator=(const_PointerType other) noexcept
 {
     return *this;
 }
 template<typename ItemType>
-inline typename iterator_base<ItemType>::IteratorType&
+inline iterator_base<ItemType>&
 iterator_base<ItemType>::operator=(const_PointerTypeRef other) noexcept
 {
     m_ptr = other;
     return *this;
 }
 template<typename ItemType>
-inline typename iterator_base<ItemType>::IteratorType&
+inline iterator_base<ItemType>&
 iterator_base<ItemType>::operator=(IteratorType& other) noexcept
 {
-    m_ptr = other.m_ptr;
+    if(this == &other)
+    {
+        return *this;
+    }
+    PointerType temp = other.m_ptr;
+    m_ptr            = temp;
     return *this;
 }
 template<typename ItemType>
@@ -164,13 +173,13 @@ inline typename iterator_base<ItemType>::IteratorType
 iterator_base<ItemType>::operator++()
 {
     ++m_ptr;
-    return *this;
+    return IteratorType(*this);
 }
 template<typename ItemType>
-inline typename iterator_base<ItemType>::IteratorType
+inline const iterator_base<ItemType>
 iterator_base<ItemType>::operator++(int)
 {
-    IteratorType temp = *this;
+    IteratorType temp = IteratorType(*this);
     m_ptr++;
     return temp;
 }
@@ -180,7 +189,7 @@ inline typename iterator_base<ItemType>::IteratorType
 iterator_base<ItemType>::operator+=(DifferenceType rhs)
 {
     m_ptr += rhs;
-    return *this;
+    return IteratorType(*this);
 }
 
 template<typename ItemType>
@@ -196,13 +205,13 @@ inline typename iterator_base<ItemType>::IteratorType
 iterator_base<ItemType>::operator--()
 {
     --m_ptr;
-    return *this;
+    return IteratorType(*this);
 }
 template<typename ItemType>
-inline typename iterator_base<ItemType>::IteratorType
+inline const iterator_base<ItemType>
 iterator_base<ItemType>::operator--(int)
 {
-    IteratorType temp = *this;
+    const IteratorType temp = IteratorType(*this);
     m_ptr--;
     return temp;
 }
@@ -211,7 +220,7 @@ inline typename iterator_base<ItemType>::IteratorType
 iterator_base<ItemType>::operator-=(DifferenceType rhs)
 {
     m_ptr -= rhs;
-    return *this;
+    return IteratorType(*this);
 }
 
 /*------------------------------------*/

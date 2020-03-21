@@ -239,7 +239,6 @@ hicpp-use-nullptr,
 hicpp-use-override,
 hicpp-vararg,
 
-llvm-header-guard,
 llvm-include-order,
 
 misc-misplaced-const,

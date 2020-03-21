@@ -15,50 +15,56 @@ class testContainer : container_base<ItemType>
     using IteratorType   = typename pel::container_base<ItemType>::IteratorType;
 
     testContainer()           = default;
+
+    testContainer(const testContainer&) = default;
+    testContainer& operator=(const testContainer&) = default;
+
+    testContainer(const testContainer&&) noexcept = default;
+    testContainer& operator=(testContainer&&) noexcept = default;
     ~testContainer() override = default;
 
-    [[nodiscard]] constexpr inline ItemType&
+    [[nodiscard]] inline ItemType&
     at(const SizeType index) override
     {
         (void)index;
         return a;
     }
-    [[nodiscard]] constexpr inline const ItemType&
+    [[nodiscard]] inline const ItemType&
     at(const SizeType index) const override
     {
         (void)index;
         return a;
     }
 
-    [[nodiscard]] constexpr inline ItemType&
+    [[nodiscard]] inline ItemType&
     front() override
     {
         return a;
     }
-    [[nodiscard]] constexpr inline ItemType&
+    [[nodiscard]] inline ItemType&
     back() override
     {
         return a;
     }
-    [[nodiscard]] constexpr inline const ItemType&
+    [[nodiscard]] inline const ItemType&
     front() const override
     {
         return a;
     }
-    [[nodiscard]] constexpr inline const ItemType&
+    [[nodiscard]] inline const ItemType&
     back() const override
     {
         return a;
     }
 
     /* Operators */
-    [[nodiscard]] constexpr inline ItemType&
+    [[nodiscard]] inline ItemType&
     operator[](const SizeType index) override
     {
         (void)index;
         return a;
     }
-    [[nodiscard]] constexpr inline const ItemType&
+    [[nodiscard]] inline const ItemType&
     operator[](const SizeType index) const override
     {
         (void)index;
@@ -66,39 +72,39 @@ class testContainer : container_base<ItemType>
     }
 
     /* Iterators */
-    [[nodiscard]] constexpr inline IteratorType
+    [[nodiscard]] inline IteratorType&
     begin() noexcept override
     {
-        return IteratorType(nullptr);
+        return m_begin;
     }
-    [[nodiscard]] constexpr inline IteratorType
+    [[nodiscard]] inline IteratorType&
     end() noexcept override
     {
-        return IteratorType(nullptr);
+        return m_end;
     }
-    [[nodiscard]] constexpr inline const IteratorType
+    [[nodiscard]] inline const IteratorType&
     cbegin() const noexcept override
     {
-        return IteratorType(nullptr);
+        return m_begin;
     }
-    [[nodiscard]] constexpr inline const IteratorType
+    [[nodiscard]] inline const IteratorType&
     cend() const noexcept override
     {
-        return IteratorType(nullptr);
+        return m_end;
     }
 
     /* Memory */
-    [[nodiscard]] constexpr inline SizeType
+    [[nodiscard]] inline SizeType
     length() const noexcept override
     {
         return 0;
     }
-    [[nodiscard]] constexpr inline bool
+    [[nodiscard]] inline bool
     is_empty() const noexcept override
     {
         return true;
     }
-    [[nodiscard]] constexpr inline bool
+    [[nodiscard]] inline bool
     is_not_empty() const noexcept override
     {
         return false;
@@ -114,5 +120,7 @@ class testContainer : container_base<ItemType>
 
     private:
     ItemType a = 0;
+    IteratorType m_begin = IteratorType{nullptr};
+    IteratorType m_end   = IteratorType{nullptr};
 };
 }        // namespace pel

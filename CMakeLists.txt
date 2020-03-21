@@ -14,7 +14,6 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Configurations are Debug & Release
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 
-
 # ------------------------------------
 # File inclusion
 

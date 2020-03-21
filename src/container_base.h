@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CONTAINER_BASE_H_
+#define CONTAINER_BASE_H_
 
 #include "src/iterator_base.h"
 
@@ -8,7 +9,6 @@
 
 namespace pel
 {
-
 template<typename ItemType>
 class container_base
 {
@@ -21,13 +21,21 @@ class container_base
 
     /*------------------------------------*/
     /* Constructors & Destructors */
-    protected:
-    virtual ~container_base()                           = default;
+    public:
+    container_base() = default;
+
+    container_base(const container_base&) = default;
+    container_base& operator=(const container_base&) = default;
+
+    container_base(const container_base&&) noexcept = default;
+    container_base& operator=(container_base&&) noexcept = default;
+
+    virtual ~container_base() = default;
 
     /*------------------------------------*/
     /* Element accessors */
-    [[nodiscard]] virtual ItemType&       at(const SizeType index)       = 0;
-    [[nodiscard]] virtual const ItemType& at(const SizeType index) const = 0;
+    [[nodiscard]] virtual ItemType&       at(SizeType index)       = 0;
+    [[nodiscard]] virtual const ItemType& at(SizeType index) const = 0;
 
     [[nodiscard]] virtual ItemType&       front()       = 0;
     [[nodiscard]] virtual ItemType&       back()        = 0;
@@ -36,15 +44,15 @@ class container_base
 
     /*------------------------------------*/
     /* Operators */
-    [[nodiscard]] virtual ItemType&       operator[](const SizeType index)       = 0;
-    [[nodiscard]] virtual const ItemType& operator[](const SizeType index) const = 0;
+    [[nodiscard]] virtual ItemType&       operator[](SizeType index)       = 0;
+    [[nodiscard]] virtual const ItemType& operator[](SizeType index) const = 0;
 
     /*------------------------------------*/
     /* Iterators */
-    [[nodiscard]] virtual IteratorType       begin() noexcept        = 0;
-    [[nodiscard]] virtual IteratorType       end() noexcept          = 0;
-    [[nodiscard]] virtual const IteratorType cbegin() const noexcept = 0;
-    [[nodiscard]] virtual const IteratorType cend() const noexcept   = 0;
+    [[nodiscard]] virtual IteratorType&       begin() noexcept        = 0;
+    [[nodiscard]] virtual IteratorType&       end() noexcept          = 0;
+    [[nodiscard]] virtual const IteratorType& cbegin() const noexcept = 0;
+    [[nodiscard]] virtual const IteratorType& cend() const noexcept   = 0;
 
     /*------------------------------------*/
     /* Memory */
@@ -58,3 +66,5 @@ class container_base
 };
 
 }        // namespace pel
+
+#endif        // CONTAINER_BASE_H_
