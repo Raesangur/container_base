@@ -30,7 +30,7 @@ class iterator_base
     iterator_base() noexcept = delete;
 
     iterator_base(const iterator_base& copy) noexcept = default;
-    iterator_base& operator                           =(const iterator_base& copy) noexcept;
+    iterator_base& operator=(const iterator_base& copy) noexcept;
 
     iterator_base(iterator_base&& move) noexcept = default;
     iterator_base& operator=(iterator_base&& move) noexcept = default;
