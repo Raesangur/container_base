@@ -27,13 +27,13 @@ class iterator_base
 
     /*------------------------------------*/
     /* Constructors */
-    iterator_base() = delete;
+    iterator_base() noexcept = delete;
 
-    iterator_base(const IteratorType&) = default;
-    iterator_base& operator=(const IteratorType&) = default;
+    iterator_base(const iterator_base& copy) noexcept = default;
+    iterator_base& operator                           =(const iterator_base& copy) noexcept;
 
-    iterator_base(const IteratorType&&) noexcept = default;
-    iterator_base& operator=(IteratorType&&) noexcept = default;
+    iterator_base(iterator_base&& move) noexcept = default;
+    iterator_base& operator=(iterator_base&& move) noexcept = default;
 
     virtual ~iterator_base() = default;
 
@@ -55,7 +55,6 @@ class iterator_base
     /* Arithmetic operators */
     iterator_base& operator=(const_PointerType other) noexcept;
     iterator_base& operator=(const_PointerTypeRef other) noexcept;
-    iterator_base& operator=(IteratorType& other) noexcept;
 
     [[nodiscard]] virtual IteratorType operator+(DifferenceType rhs) const;
     virtual IteratorType               operator++();
@@ -139,6 +138,7 @@ template<typename ItemType>
 inline iterator_base<ItemType>&
 iterator_base<ItemType>::operator=(const_PointerType other) noexcept
 {
+    m_ptr = other;
     return *this;
 }
 template<typename ItemType>
@@ -150,15 +150,17 @@ iterator_base<ItemType>::operator=(const_PointerTypeRef other) noexcept
 }
 template<typename ItemType>
 inline iterator_base<ItemType>&
-iterator_base<ItemType>::operator=(IteratorType& other) noexcept
+iterator_base<ItemType>::operator=(const iterator_base& copy) noexcept
 {
-    if(this == &other)
+    if(this == &copy)
     {
         return *this;
     }
-    PointerType temp = other.m_ptr;
-    m_ptr            = temp;
-    return *this;
+    else
+    {
+        this->m_ptr = copy.m_ptr;
+        return *this;
+    }
 }
 template<typename ItemType>
 [[nodiscard]] inline typename iterator_base<ItemType>::IteratorType

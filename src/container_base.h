@@ -24,11 +24,11 @@ class container_base
     public:
     container_base() = default;
 
-    container_base(const container_base&) = default;
-    container_base& operator=(const container_base&) = default;
+    container_base(const container_base& copy) = default;
+    container_base& operator=(const container_base& copy) = default;
 
-    container_base(const container_base&&) noexcept = default;
-    container_base& operator=(container_base&&) noexcept = default;
+    container_base(container_base&& move) noexcept = default;
+    container_base& operator=(container_base&& move) noexcept = default;
 
     virtual ~container_base() = default;
 
