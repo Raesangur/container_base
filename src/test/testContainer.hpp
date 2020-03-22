@@ -19,7 +19,7 @@ class testContainer : container_base<ItemType>
     testContainer(const testContainer&) = default;
     testContainer& operator=(const testContainer&) = default;
 
-    testContainer(const testContainer&&) noexcept = default;
+    testContainer(testContainer&&) noexcept = default;
     testContainer& operator=(testContainer&&) noexcept = default;
     ~testContainer() override = default;
 
