@@ -3,20 +3,30 @@
 
 #include "test/testContainer.hpp"
 
+#include <algorithm>
 #include <array>
 #include <iostream>
+#include <vector>
 
 int
 main()
 {
-    constexpr std::size_t size = 10;
+    std::array<int, 5> b {1, 2, 3, 4, 5};
+    int&               a = b.at(0);
 
-    std::array<int, size>   b {0};
-    pel::testContainer<int> test;
-    int                     a = test.at(0);
-    int                     f = test[0];
-    int                     c = test.front();
-    int                     e = test.back();
+    pel::iterator_base<int> testBegin(&b.front());
+    pel::iterator_base<int> testEnd(&b.back() + 1);
 
-    return a + b[0] + c + e + f;
+    std::vector<int> testVec = std::vector<int> {testBegin.ptr(), testEnd.ptr()};
+
+    for(int test: testVec)
+    {
+        std::cout << test;
+    }
+
+    std::for_each(testBegin, testEnd, [](int test) {
+        std::cout << test;
+    });
+
+    return a;
 }
