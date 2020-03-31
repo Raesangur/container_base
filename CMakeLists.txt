@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 
+# -----------------------------------------------------------------------------
+
 # Suppress generator of ZERO_CHECK project and hide ALL_BUILD project
 set(CMAKE_SUPPRESS_REGENERATION true)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -14,7 +16,24 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Configurations are Debug & Release
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 
-# ------------------------------------
+
+
+
+# -----------------------------------------------------------------------------
+# Output directories
+
+# https://stackoverflow.com/questions/6594796/how-do-i-make-cmake-output-into-a-bin-dir
+
+foreach( OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES} )
+    string( TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG )
+    set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/lib )
+    set( CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/lib )
+    set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_SOURCE_DIR}/bin )
+endforeach( OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES )
+
+
+
+# -----------------------------------------------------------------------------
 # File inclusion
 
 # Include only the root project directory
@@ -44,7 +63,7 @@ add_executable(container_base ${source_list})
 
 
 
-# ------------------------------------
+# -----------------------------------------------------------------------------
 # Warnings
 
 # https://github.com/lefticus/cpp_starter_project/blob/master/CMakeLists.txt
@@ -137,7 +156,7 @@ target_compile_options(container_base PRIVATE ${PROJECT_WARNINGS})
 
 
 
-# ------------------------------------
+# -----------------------------------------------------------------------------
 # Misc options
 
 # Select the unicode character set
