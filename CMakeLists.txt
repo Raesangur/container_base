@@ -145,6 +145,7 @@ set(MSVC_WARNINGS
     /wd5038     # remove warnings : data member 'member1' will be initialized after data member 'member2'
     /wd5039     # remove warnings : 'function': pointer or reference to potentially throwing function passed to extern C function under -EHc. Undefined behavior may occur if this function throws an exception.
     /wd5042     # remove warnings : 'function': function declarations at block scope cannot be specified 'inline' in standard C++; remove 'inline' specifier
+    /wd5045		# remove warnings : Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
 )
 
 # Set warnings as errors
