@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 
 # -----------------------------------------------------------------------------
+# Project CMake Generation settings 
 
 # Suppress generator of ZERO_CHECK project and hide ALL_BUILD project
 set(CMAKE_SUPPRESS_REGENERATION true)
@@ -16,6 +17,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Configurations are Debug & Release
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 
+# Set current project as debug project
+# https://stackoverflow.com/questions/7304625/how-do-i-change-the-startup-project-of-a-visual-studio-solution-via-cmake/37994396#37994396
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT container_base)
 
 
 
