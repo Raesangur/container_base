@@ -1,9 +1,9 @@
 #pragma once
-#include "src/container_base.h"
+#include "../container_base.h"
 
 namespace pel
 {
-template<typename ItemType>
+template<typename ItemType, typename IteratorType>
 class container_base;
 
 template<typename ItemType>
@@ -72,22 +72,22 @@ class testContainer : container_base<ItemType>
     }
 
     /* Iterators */
-    [[nodiscard]] inline IteratorType&
+    [[nodiscard]] inline IteratorType
     begin() noexcept override
     {
         return m_begin;
     }
-    [[nodiscard]] inline IteratorType&
+    [[nodiscard]] inline IteratorType
     end() noexcept override
     {
         return m_end;
     }
-    [[nodiscard]] inline const IteratorType&
+    [[nodiscard]] inline const IteratorType
     cbegin() const noexcept override
     {
         return m_begin;
     }
-    [[nodiscard]] inline const IteratorType&
+    [[nodiscard]] inline const IteratorType
     cend() const noexcept override
     {
         return m_end;

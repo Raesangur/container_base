@@ -11,6 +11,7 @@ class iterator_base
     public:
     /*------------------------------------*/
     /* Typenames */
+
     using IteratorType       = iterator_base<ItemType>;
     using const_IteratorType = const iterator_base<ItemType>;
 
@@ -25,9 +26,19 @@ class iterator_base
     using const_ReferenceType  = const ItemType&;
     using const_PointerTypeRef = const const_PointerType&;
 
+    /* Types for the STL */
+    using IteratorCategory  = std::contiguous_iterator_tag;
+    using iterator_category = IteratorCategory;
+    using self_type         = IteratorType;
+    using value_type        = ItemType;
+    using reference         = ReferenceType;
+    using pointer           = PointerType;
+    using difference_type   = DifferenceType;
+    using size_type         = SizeType;
+
     /*------------------------------------*/
     /* Constructors */
-    iterator_base() noexcept = delete;
+    iterator_base() noexcept = default;
 
     iterator_base(const iterator_base& copy) noexcept = default;
     iterator_base& operator=(const iterator_base& copy) noexcept;
@@ -37,7 +48,7 @@ class iterator_base
 
     virtual ~iterator_base() = default;
 
-    explicit iterator_base(PointerType pointer) : m_ptr(pointer)
+    iterator_base(PointerType pointer) : m_ptr(pointer)
     {
     }
 
@@ -48,8 +59,11 @@ class iterator_base
 
     [[nodiscard]] ReferenceType       operator*();
     [[nodiscard]] const_ReferenceType operator*() const;
+    [[nodiscard]] PointerType         operator->();
+    [[nodiscard]] const_PointerType   operator->() const;
 
-    [[nodiscard]] explicit operator PointerType() const noexcept;
+    [[nodiscard]] virtual ItemType& operator[](DifferenceType index) const;
+    [[nodiscard]] virtual ItemType& operator[](SizeType index) const;
 
     /*------------------------------------*/
     /* Arithmetic operators */
@@ -61,10 +75,11 @@ class iterator_base
     virtual const IteratorType         operator++(int);
     virtual IteratorType               operator+=(DifferenceType rhs);
 
-    [[nodiscard]] virtual IteratorType operator-(DifferenceType rhs) const;
-    virtual IteratorType               operator--();
-    virtual const IteratorType         operator--(int);
-    virtual IteratorType               operator-=(DifferenceType rhs);
+    [[nodiscard]] virtual IteratorType   operator-(DifferenceType rhs) const;
+    [[nodiscard]] virtual DifferenceType operator-(IteratorType rhs) const;
+    virtual IteratorType                 operator--();
+    virtual const IteratorType           operator--(int);
+    virtual IteratorType                 operator-=(DifferenceType rhs);
 
     /*------------------------------------*/
     /* Comparison operators */
@@ -127,9 +142,30 @@ iterator_base<ItemType>::operator*() const
 }
 
 template<typename ItemType>
-[[nodiscard]] inline iterator_base<ItemType>::operator PointerType() const noexcept
+[[nodiscard]] inline typename iterator_base<ItemType>::PointerType
+iterator_base<ItemType>::operator->()
 {
     return m_ptr;
+}
+
+template<typename ItemType>
+[[nodiscard]] inline typename iterator_base<ItemType>::const_PointerType 
+iterator_base<ItemType>::operator->() const
+{
+    return m_ptr;
+}
+
+template<typename ItemType>
+[[nodiscard]] inline ItemType&
+iterator_base<ItemType>::operator[](DifferenceType index) const
+{
+    return m_ptr[index];
+}
+template<typename ItemType>
+[[nodiscard]] inline ItemType&
+iterator_base<ItemType>::operator[](SizeType index) const
+{
+    return m_ptr[index];
 }
 
 /*------------------------------------*/
@@ -162,6 +198,7 @@ iterator_base<ItemType>::operator=(const iterator_base& copy) noexcept
         return *this;
     }
 }
+
 template<typename ItemType>
 [[nodiscard]] inline typename iterator_base<ItemType>::IteratorType
 iterator_base<ItemType>::operator+(DifferenceType rhs) const
@@ -200,6 +237,13 @@ iterator_base<ItemType>::operator-(DifferenceType rhs) const
 {
     PointerType pointer = m_ptr - rhs;
     return IteratorType(pointer);
+}
+template<typename ItemType>
+[[nodiscard]] inline typename iterator_base<ItemType>::DifferenceType
+iterator_base<ItemType>::operator-(IteratorType rhs) const
+{
+    DifferenceType pointer = m_ptr - rhs.m_ptr;
+    return pointer;
 }
 
 template<typename ItemType>

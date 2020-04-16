@@ -1,7 +1,7 @@
 #ifndef CONTAINER_BASE_H_
 #define CONTAINER_BASE_H_
 
-#include "src/iterator_base.h"
+#include "./iterator_base.h"
 
 #include <iterator>
 #include <memory>
@@ -9,7 +9,7 @@
 
 namespace pel
 {
-template<typename ItemType>
+template<typename ItemType, typename IteratorType = typename pel::iterator_base<ItemType>>
 class container_base
 {
     /*------------------------------------*/
@@ -17,7 +17,6 @@ class container_base
     public:
     using SizeType       = typename std::size_t;
     using DifferenceType = typename std::ptrdiff_t;
-    using IteratorType   = typename pel::iterator_base<ItemType>;
 
     /*------------------------------------*/
     /* Constructors & Destructors */
@@ -49,10 +48,10 @@ class container_base
 
     /*------------------------------------*/
     /* Iterators */
-    [[nodiscard]] virtual IteratorType&       begin() noexcept        = 0;
-    [[nodiscard]] virtual IteratorType&       end() noexcept          = 0;
-    [[nodiscard]] virtual const IteratorType& cbegin() const noexcept = 0;
-    [[nodiscard]] virtual const IteratorType& cend() const noexcept   = 0;
+    [[nodiscard]] virtual IteratorType       begin() const noexcept  = 0;
+    [[nodiscard]] virtual IteratorType       end() const noexcept    = 0;
+    [[nodiscard]] virtual const IteratorType cbegin() const noexcept = 0;
+    [[nodiscard]] virtual const IteratorType cend() const noexcept   = 0;
 
     /*------------------------------------*/
     /* Memory */
