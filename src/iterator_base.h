@@ -27,7 +27,7 @@ class iterator_base
     using const_PointerTypeRef = const const_PointerType&;
 
     /* Types for the STL */
-    using IteratorCategory  = std::contiguous_iterator_tag;
+    using IteratorCategory  = std::random_access_iterator_tag;
     using iterator_category = IteratorCategory;
     using self_type         = IteratorType;
     using value_type        = ItemType;
@@ -54,6 +54,7 @@ class iterator_base
 
     /*------------------------------------*/
     /* Memory operators */
+    [[nodiscard]] ReferenceType     value() const noexcept;
     [[nodiscard]] PointerType       ptr() noexcept;
     [[nodiscard]] const_PointerType ptr() const noexcept;
 
@@ -115,6 +116,14 @@ class iterator_base
 /* IMPLEMENTATION OF METHODS                                             */
 /*************************************************************************/
 /* Memory operators */
+
+template<typename ItemType>
+[[nodiscard]] inline typename iterator_base<ItemType>::ReferenceType
+iterator_base<ItemType>::value() const noexcept
+{
+    return *m_ptr;
+}
+
 template<typename ItemType>
 [[nodiscard]] inline typename iterator_base<ItemType>::PointerType
 iterator_base<ItemType>::ptr() noexcept
