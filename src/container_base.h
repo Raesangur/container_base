@@ -23,18 +23,18 @@ class container_base
     public:
     container_base() = default;
 
-    container_base(const container_base& copy) = default;
-    container_base& operator=(const container_base& copy) = default;
+    container_base(const container_base& copy_) = default;
+    container_base& operator=(const container_base& copy_) = default;
 
-    container_base(container_base&& move) noexcept = default;
-    container_base& operator=(container_base&& move) noexcept = default;
+    container_base(container_base&& move_) noexcept = default;
+    container_base& operator=(container_base&& move_) noexcept = default;
 
     virtual ~container_base() = default;
 
     /*------------------------------------*/
     /* Element accessors */
-    [[nodiscard]] virtual ItemType&       at(SizeType index)       = 0;
-    [[nodiscard]] virtual const ItemType& at(SizeType index) const = 0;
+    [[nodiscard]] virtual ItemType&       at(SizeType index_)       = 0;
+    [[nodiscard]] virtual const ItemType& at(SizeType index_) const = 0;
 
     [[nodiscard]] virtual ItemType&       front()       = 0;
     [[nodiscard]] virtual ItemType&       back()        = 0;
@@ -43,8 +43,8 @@ class container_base
 
     /*------------------------------------*/
     /* Operators */
-    [[nodiscard]] virtual ItemType&       operator[](SizeType index)       = 0;
-    [[nodiscard]] virtual const ItemType& operator[](SizeType index) const = 0;
+    [[nodiscard]] virtual ItemType&       operator[](SizeType index_)       = 0;
+    [[nodiscard]] virtual const ItemType& operator[](SizeType index_) const = 0;
 
     /*------------------------------------*/
     /* Iterators */
