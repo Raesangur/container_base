@@ -16,8 +16,8 @@ class container_base
     /*------------------------------------*/
     /* Typenames */
     public:
-    using SizeType       = typename std::size_t;
-    using DifferenceType = typename std::ptrdiff_t;
+    using SizeType       = std::size_t;
+    using DifferenceType = std::ptrdiff_t;
 
     /*------------------------------------*/
     /* Constructors & Destructors */
