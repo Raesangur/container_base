@@ -3,6 +3,7 @@
 
 #include "./iterator_base.h"
 
+#include <cstddef>
 #include <iterator>
 #include <memory>
 #include <string>
