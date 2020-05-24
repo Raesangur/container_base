@@ -212,8 +212,8 @@ template<typename ItemType>
 [[nodiscard]] inline typename iterator_base<ItemType>::IteratorType
 iterator_base<ItemType>::operator+(DifferenceType rhs_) const
 {
-    PointerType pointer = m_ptr + rhs_;
-    return IteratorType(pointer);
+    PointerType ptr = m_ptr + rhs_;
+    return IteratorType(ptr);
 }
 
 template<typename ItemType>
@@ -244,15 +244,15 @@ template<typename ItemType>
 [[nodiscard]] inline typename iterator_base<ItemType>::IteratorType
 iterator_base<ItemType>::operator-(DifferenceType rhs_) const
 {
-    PointerType pointer = m_ptr - rhs_;
-    return IteratorType(pointer);
+    PointerType ptr = m_ptr - rhs_;
+    return IteratorType(ptr);
 }
 template<typename ItemType>
 [[nodiscard]] inline typename iterator_base<ItemType>::DifferenceType
 iterator_base<ItemType>::operator-(IteratorType rhs_) const
 {
-    DifferenceType pointer = m_ptr - rhs_.m_ptr;
-    return pointer;
+    DifferenceType ptr = m_ptr - rhs_.m_ptr;
+    return ptr;
 }
 
 template<typename ItemType>
