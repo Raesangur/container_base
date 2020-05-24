@@ -27,7 +27,7 @@ class iterator_base
     using const_PointerTypeRef = const const_PointerType&;
 
     /* Types for the STL */
-    using IteratorCategory  = std::contiguous_iterator_tag;
+    using IteratorCategory  = std::random_access_iterator_tag;
     using iterator_category = IteratorCategory;
     using self_type         = IteratorType;
     using value_type        = ItemType;
@@ -40,20 +40,21 @@ class iterator_base
     /* Constructors */
     iterator_base() noexcept = default;
 
-    iterator_base(const iterator_base& copy) noexcept = default;
-    iterator_base& operator=(const iterator_base& copy) noexcept;
+    iterator_base(const iterator_base& copy_) noexcept = default;
+    iterator_base& operator=(const iterator_base& copy_) noexcept;
 
-    iterator_base(iterator_base&& move) noexcept = default;
-    iterator_base& operator=(iterator_base&& move) noexcept = default;
+    iterator_base(iterator_base&& move_) noexcept = default;
+    iterator_base& operator=(iterator_base&& move_) noexcept = default;
 
     virtual ~iterator_base() = default;
 
-    iterator_base(PointerType pointer) : m_ptr(pointer)
+    iterator_base(PointerType pointer_) : m_ptr(pointer_)
     {
     }
 
     /*------------------------------------*/
     /* Memory operators */
+    [[nodiscard]] ReferenceType     value() const noexcept;
     [[nodiscard]] PointerType       ptr() noexcept;
     [[nodiscard]] const_PointerType ptr() const noexcept;
 
@@ -67,42 +68,42 @@ class iterator_base
 
     /*------------------------------------*/
     /* Arithmetic operators */
-    iterator_base& operator=(const_PointerType other) noexcept;
-    iterator_base& operator=(const_PointerTypeRef other) noexcept;
+    iterator_base& operator=(const_PointerType other_) noexcept;
+    iterator_base& operator=(const_PointerTypeRef other_) noexcept;
 
-    [[nodiscard]] virtual IteratorType operator+(DifferenceType rhs) const;
+    [[nodiscard]] virtual IteratorType operator+(DifferenceType rhs_) const;
     virtual IteratorType               operator++();
     virtual const IteratorType         operator++(int);
-    virtual IteratorType               operator+=(DifferenceType rhs);
+    virtual IteratorType               operator+=(DifferenceType rhs_);
 
-    [[nodiscard]] virtual IteratorType   operator-(DifferenceType rhs) const;
-    [[nodiscard]] virtual DifferenceType operator-(IteratorType rhs) const;
+    [[nodiscard]] virtual IteratorType   operator-(DifferenceType rhs_) const;
+    [[nodiscard]] virtual DifferenceType operator-(IteratorType rhs_) const;
     virtual IteratorType                 operator--();
     virtual const IteratorType           operator--(int);
-    virtual IteratorType                 operator-=(DifferenceType rhs);
+    virtual IteratorType                 operator-=(DifferenceType rhs_);
 
     /*------------------------------------*/
     /* Comparison operators */
-    [[nodiscard]] virtual bool operator==(const_IteratorType rhs) const noexcept;
-    [[nodiscard]] virtual bool operator==(const_PointerType rhs) const noexcept;
-    [[nodiscard]] virtual bool operator!=(const_IteratorType rhs) const noexcept;
-    [[nodiscard]] virtual bool operator!=(const_PointerType rhs) const noexcept;
+    [[nodiscard]] virtual bool operator==(const_IteratorType rhs_) const noexcept;
+    [[nodiscard]] virtual bool operator==(const_PointerType rhs_) const noexcept;
+    [[nodiscard]] virtual bool operator!=(const_IteratorType rhs_) const noexcept;
+    [[nodiscard]] virtual bool operator!=(const_PointerType rhs_) const noexcept;
 
-    [[nodiscard]] virtual bool operator>(const_IteratorType rhs) const noexcept;
-    [[nodiscard]] virtual bool operator>(const_PointerType rhs) const noexcept;
+    [[nodiscard]] virtual bool operator>(const_IteratorType rhs_) const noexcept;
+    [[nodiscard]] virtual bool operator>(const_PointerType rhs_) const noexcept;
 
-    [[nodiscard]] virtual bool operator>=(const_IteratorType rhs) const noexcept;
-    [[nodiscard]] virtual bool operator>=(const_PointerType rhs) const noexcept;
+    [[nodiscard]] virtual bool operator>=(const_IteratorType rhs_) const noexcept;
+    [[nodiscard]] virtual bool operator>=(const_PointerType rhs_) const noexcept;
 
-    [[nodiscard]] virtual bool operator<(const_IteratorType rhs) const noexcept;
-    [[nodiscard]] virtual bool operator<(const_PointerType rhs) const noexcept;
+    [[nodiscard]] virtual bool operator<(const_IteratorType rhs_) const noexcept;
+    [[nodiscard]] virtual bool operator<(const_PointerType rhs_) const noexcept;
 
-    [[nodiscard]] virtual bool operator<=(const_IteratorType rhs) const noexcept;
-    [[nodiscard]] virtual bool operator<=(const_PointerType rhs) const noexcept;
+    [[nodiscard]] virtual bool operator<=(const_IteratorType rhs_) const noexcept;
+    [[nodiscard]] virtual bool operator<=(const_PointerType rhs_) const noexcept;
 
 #ifdef __cpp_impl_three_way_comparison
-    [[nodiscard]] virtual std::strong_ordering operator<=>(const_IteratorType rhs) const noexcept;
-    [[nodiscard]] virtual std::strong_ordering operator<=>(const_PointerType rhs) const noexcept;
+    [[nodiscard]] virtual std::strong_ordering operator<=>(const_IteratorType rhs_) const noexcept;
+    [[nodiscard]] virtual std::strong_ordering operator<=>(const_PointerType rhs_) const noexcept;
 #endif
 
     /*------------------------------------*/
@@ -115,6 +116,14 @@ class iterator_base
 /* IMPLEMENTATION OF METHODS                                             */
 /*************************************************************************/
 /* Memory operators */
+
+template<typename ItemType>
+[[nodiscard]] inline typename iterator_base<ItemType>::ReferenceType
+iterator_base<ItemType>::value() const noexcept
+{
+    return *m_ptr;
+}
+
 template<typename ItemType>
 [[nodiscard]] inline typename iterator_base<ItemType>::PointerType
 iterator_base<ItemType>::ptr() noexcept
@@ -157,54 +166,54 @@ iterator_base<ItemType>::operator->() const
 
 template<typename ItemType>
 [[nodiscard]] inline ItemType&
-iterator_base<ItemType>::operator[](DifferenceType index) const
+iterator_base<ItemType>::operator[](DifferenceType index_) const
 {
-    return m_ptr[index];
+    return m_ptr[index_];
 }
 template<typename ItemType>
 [[nodiscard]] inline ItemType&
-iterator_base<ItemType>::operator[](SizeType index) const
+iterator_base<ItemType>::operator[](SizeType index_) const
 {
-    return m_ptr[index];
+    return m_ptr[index_];
 }
 
 /*------------------------------------*/
 /* Arithmetic operators */
 template<typename ItemType>
 inline iterator_base<ItemType>&
-iterator_base<ItemType>::operator=(const_PointerType other) noexcept
+iterator_base<ItemType>::operator=(const_PointerType other_) noexcept
 {
-    m_ptr = other;
+    m_ptr = other_;
     return *this;
 }
 template<typename ItemType>
 inline iterator_base<ItemType>&
-iterator_base<ItemType>::operator=(const_PointerTypeRef other) noexcept
+iterator_base<ItemType>::operator=(const_PointerTypeRef other_) noexcept
 {
-    m_ptr = other;
+    m_ptr = other_;
     return *this;
 }
 template<typename ItemType>
 inline iterator_base<ItemType>&
-iterator_base<ItemType>::operator=(const iterator_base& copy) noexcept
+iterator_base<ItemType>::operator=(const iterator_base& copy_) noexcept
 {
-    if(this == &copy)
+    if(this == &copy_)
     {
         return *this;
     }
     else
     {
-        this->m_ptr = copy.m_ptr;
+        this->m_ptr = copy_.m_ptr;
         return *this;
     }
 }
 
 template<typename ItemType>
 [[nodiscard]] inline typename iterator_base<ItemType>::IteratorType
-iterator_base<ItemType>::operator+(DifferenceType rhs) const
+iterator_base<ItemType>::operator+(DifferenceType rhs_) const
 {
-    PointerType pointer = m_ptr + rhs;
-    return IteratorType(pointer);
+    PointerType ptr = m_ptr + rhs_;
+    return IteratorType(ptr);
 }
 
 template<typename ItemType>
@@ -225,25 +234,25 @@ iterator_base<ItemType>::operator++(int)
 
 template<typename ItemType>
 inline typename iterator_base<ItemType>::IteratorType
-iterator_base<ItemType>::operator+=(DifferenceType rhs)
+iterator_base<ItemType>::operator+=(DifferenceType rhs_)
 {
-    m_ptr += rhs;
+    m_ptr += rhs_;
     return IteratorType(*this);
 }
 
 template<typename ItemType>
 [[nodiscard]] inline typename iterator_base<ItemType>::IteratorType
-iterator_base<ItemType>::operator-(DifferenceType rhs) const
+iterator_base<ItemType>::operator-(DifferenceType rhs_) const
 {
-    PointerType pointer = m_ptr - rhs;
-    return IteratorType(pointer);
+    PointerType ptr = m_ptr - rhs_;
+    return IteratorType(ptr);
 }
 template<typename ItemType>
 [[nodiscard]] inline typename iterator_base<ItemType>::DifferenceType
-iterator_base<ItemType>::operator-(IteratorType rhs) const
+iterator_base<ItemType>::operator-(IteratorType rhs_) const
 {
-    DifferenceType pointer = m_ptr - rhs.m_ptr;
-    return pointer;
+    DifferenceType ptr = m_ptr - rhs_.m_ptr;
+    return ptr;
 }
 
 template<typename ItemType>
@@ -263,9 +272,9 @@ iterator_base<ItemType>::operator--(int)
 }
 template<typename ItemType>
 inline typename iterator_base<ItemType>::IteratorType
-iterator_base<ItemType>::operator-=(DifferenceType rhs)
+iterator_base<ItemType>::operator-=(DifferenceType rhs_)
 {
-    m_ptr -= rhs;
+    m_ptr -= rhs_;
     return IteratorType(*this);
 }
 
@@ -273,108 +282,108 @@ iterator_base<ItemType>::operator-=(DifferenceType rhs)
 /* Comparison operators */
 template<typename ItemType>
 [[nodiscard]] inline bool
-iterator_base<ItemType>::operator==(const_IteratorType rhs) const noexcept
+iterator_base<ItemType>::operator==(const_IteratorType rhs_) const noexcept
 {
-    return m_ptr == rhs.m_ptr;
+    return m_ptr == rhs_.m_ptr;
 }
 template<typename ItemType>
 [[nodiscard]] inline bool
-iterator_base<ItemType>::operator==(const_PointerType rhs) const noexcept
+iterator_base<ItemType>::operator==(const_PointerType rhs_) const noexcept
 {
-    return m_ptr == rhs;
+    return m_ptr == rhs_;
 }
 template<typename ItemType>
 [[nodiscard]] inline bool
-iterator_base<ItemType>::operator!=(const_IteratorType rhs) const noexcept
+iterator_base<ItemType>::operator!=(const_IteratorType rhs_) const noexcept
 {
-    return m_ptr != rhs.m_ptr;
+    return m_ptr != rhs_.m_ptr;
 }
 template<typename ItemType>
 [[nodiscard]] inline bool
-iterator_base<ItemType>::operator!=(const_PointerType rhs) const noexcept
+iterator_base<ItemType>::operator!=(const_PointerType rhs_) const noexcept
 {
-    return m_ptr != rhs;
+    return m_ptr != rhs_;
 }
 template<typename ItemType>
 [[nodiscard]] inline bool
-iterator_base<ItemType>::operator>(const_IteratorType rhs) const noexcept
+iterator_base<ItemType>::operator>(const_IteratorType rhs_) const noexcept
 {
-    return m_ptr > rhs.m_ptr;
+    return m_ptr > rhs_.m_ptr;
 }
 template<typename ItemType>
 [[nodiscard]] inline bool
-iterator_base<ItemType>::operator>(const_PointerType rhs) const noexcept
+iterator_base<ItemType>::operator>(const_PointerType rhs_) const noexcept
 {
-    return m_ptr > rhs;
+    return m_ptr > rhs_;
 }
 template<typename ItemType>
 [[nodiscard]] inline bool
-iterator_base<ItemType>::operator>=(const_IteratorType rhs) const noexcept
+iterator_base<ItemType>::operator>=(const_IteratorType rhs_) const noexcept
 {
-    return m_ptr >= rhs.m_ptr;
+    return m_ptr >= rhs_.m_ptr;
 }
 template<typename ItemType>
 [[nodiscard]] inline bool
-iterator_base<ItemType>::operator>=(const_PointerType rhs) const noexcept
+iterator_base<ItemType>::operator>=(const_PointerType rhs_) const noexcept
 {
-    return m_ptr >= rhs;
+    return m_ptr >= rhs_;
 }
 template<typename ItemType>
 [[nodiscard]] inline bool
-iterator_base<ItemType>::operator<(const_IteratorType rhs) const noexcept
+iterator_base<ItemType>::operator<(const_IteratorType rhs_) const noexcept
 {
-    return m_ptr < rhs.m_ptr;
+    return m_ptr < rhs_.m_ptr;
 }
 template<typename ItemType>
 [[nodiscard]] inline bool
-iterator_base<ItemType>::operator<(const_PointerType rhs) const noexcept
+iterator_base<ItemType>::operator<(const_PointerType rhs_) const noexcept
 {
-    return m_ptr < rhs;
+    return m_ptr < rhs_;
 }
 template<typename ItemType>
 [[nodiscard]] inline bool
-iterator_base<ItemType>::operator<=(const_IteratorType rhs) const noexcept
+iterator_base<ItemType>::operator<=(const_IteratorType rhs_) const noexcept
 {
-    return m_ptr <= rhs.m_ptr;
+    return m_ptr <= rhs_.m_ptr;
 }
 template<typename ItemType>
 [[nodiscard]] inline bool
-iterator_base<ItemType>::operator<=(const_PointerType rhs) const noexcept
+iterator_base<ItemType>::operator<=(const_PointerType rhs_) const noexcept
 {
-    return m_ptr <= rhs;
+    return m_ptr <= rhs_;
 }
 
 #ifdef __cpp_impl_three_way_comparison
 template<typename ItemType>
 [[nodiscard]] inline std::strong_ordering
-iterator_base<ItemType>::operator<=>(const_IteratorType rhs) const noexcept
+iterator_base<ItemType>::operator<=>(const_IteratorType rhs_) const noexcept
 {
-    if(m_ptr < rhs.m_ptr)
+    if(m_ptr < rhs_.m_ptr)
     {
         return std::strong_ordering::greater;
     }
-    if(m_ptr > rhs.m_ptr)
+    if(m_ptr > rhs_.m_ptr)
     {
         return std::strong_ordering::less;
     }
-    else /* m_ptr == rhs.m_ptr */
+    else /* m_ptr == rhs_.m_ptr */
     {
         return std::strong_ordering::equal;
     }
 }
 template<typename ItemType>
 [[nodiscard]] inline std::strong_ordering
-iterator_base<ItemType>::operator<=>(const_PointerType rhs) const noexcept
+iterator_base<ItemType>::operator<=>(const_PointerType rhs_) const noexcept
 {
-    if(m_ptr < rhs)
+    if(m_ptr < rhs_)
     {
         return std::strong_ordering::greater;
     }
-    if(m_ptr > rhs)
+    if(m_ptr > rhs_)
     {
         return std::strong_ordering::less;
     }
-    else /* m_ptr == rhs */
+    else /* m_ptr == rhs_ */
     {
         return std::strong_ordering::equal;
     }
