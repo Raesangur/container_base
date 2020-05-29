@@ -48,7 +48,7 @@ class iterator_base
 
     virtual ~iterator_base() = default;
 
-    iterator_base(PointerType pointer_) : m_ptr(pointer_)
+    explicit iterator_base(PointerType pointer_) : m_ptr(pointer_)
     {
     }
 
