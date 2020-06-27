@@ -14,8 +14,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{57ABAF05-B9B4-3C2C-8FE4-4A67A1151317}</ProjectGuid>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <ProjectGuid>{E54DEE95-AB93-3C7B-B6D9-06860BC65968}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
     <ProjectName>container_base</ProjectName>
@@ -41,13 +41,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\GitHub\container_base\bin\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\GitHub\vector\src\container_base\bin\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">container_base.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">container_base</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\GitHub\container_base\bin\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\GitHub\vector\src\container_base\bin\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">container_base.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">container_base</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
@@ -56,12 +56,13 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\GitHub\container_base\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\GitHub\vector\src\container_base\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
+      <ControlFlowGuard>Guard</ControlFlowGuard>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>4191;4255;4263;4264;4266;4287;4296;4339;4342;4350;4365;4370;4371;4412;4426;4435;4437;4444;4464;4471;4472;4514;4547;4548;4557;4571;4577;4587;4588;4598;4599;4605;4608;4628;4640;4647;4668;4682;4686;4692;4710;4738;4746;4749;4767;4768;4786;4820;4822;4826;4841;4842;4917;4928;4931;4946;4962;4986;5022;5023;5029;5034;5035;5038;5039;5042;5045</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4191;4255;4263;4264;4266;4287;4296;4339;4342;4350;4365;4370;4371;4412;4426;4435;4437;4444;4464;4471;4472;4514;4547;4548;4557;4571;4577;4587;4588;4598;4599;4605;4608;4628;4640;4647;4668;4682;4686;4692;4710;4711;4738;4746;4749;4767;4768;4786;4820;4822;4826;4841;4842;4917;4928;4931;4946;4962;4986;5022;5023;5029;5034;5035;5038;5039;5042;5045</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <LanguageStandard>stdcpplatest</LanguageStandard>
@@ -72,15 +73,15 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>EnableAllWarnings</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_UNICODE;UNICODE;_CONSOLE;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;DEBUG;_UNICODE;UNICODE;_CONSOLE;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_UNICODE;UNICODE;_CONSOLE;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\GitHub\container_base\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;DEBUG;_UNICODE;UNICODE;_CONSOLE;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\GitHub\vector\src\container_base\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\GitHub\container_base\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\GitHub\vector\src\container_base\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -93,8 +94,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>E:/GitHub/container_base/lib/container_base.lib</ImportLibrary>
-      <ProgramDataBaseFile>E:/GitHub/container_base/bin/container_base.pdb</ProgramDataBaseFile>
+      <ImportLibrary>E:/GitHub/vector/src/container_base/lib/container_base.lib</ImportLibrary>
+      <ProgramDataBaseFile>E:/GitHub/vector/src/container_base/bin/container_base.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -103,10 +104,11 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\GitHub\container_base\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\GitHub\vector\src\container_base\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
-      <DisableSpecificWarnings>4191;4255;4263;4264;4266;4287;4296;4339;4342;4350;4365;4370;4371;4412;4426;4435;4437;4444;4464;4471;4472;4514;4547;4548;4557;4571;4577;4587;4588;4598;4599;4605;4608;4628;4640;4647;4668;4682;4686;4692;4710;4738;4746;4749;4767;4768;4786;4820;4822;4826;4841;4842;4917;4928;4931;4946;4962;4986;5022;5023;5029;5034;5035;5038;5039;5042;5045</DisableSpecificWarnings>
+      <ControlFlowGuard>Guard</ControlFlowGuard>
+      <DisableSpecificWarnings>4191;4255;4263;4264;4266;4287;4296;4339;4342;4350;4365;4370;4371;4412;4426;4435;4437;4444;4464;4471;4472;4514;4547;4548;4557;4571;4577;4587;4588;4598;4599;4605;4608;4628;4640;4647;4668;4682;4686;4692;4710;4711;4738;4746;4749;4767;4768;4786;4820;4822;4826;4841;4842;4917;4928;4931;4946;4962;4986;5022;5023;5029;5034;5035;5038;5039;5042;5045</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <LanguageStandard>stdcpplatest</LanguageStandard>
@@ -117,17 +119,17 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>EnableAllWarnings</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_UNICODE;UNICODE;_CONSOLE;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;DEBUG;_UNICODE;UNICODE;_CONSOLE;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_UNICODE;UNICODE;_CONSOLE;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\GitHub\container_base\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;DEBUG;_UNICODE;UNICODE;_CONSOLE;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\GitHub\vector\src\container_base\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>E:\GitHub\container_base\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\GitHub\vector\src\container_base\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -140,8 +142,8 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>E:/GitHub/container_base/lib/container_base.lib</ImportLibrary>
-      <ProgramDataBaseFile>E:/GitHub/container_base/bin/container_base.pdb</ProgramDataBaseFile>
+      <ImportLibrary>E:/GitHub/vector/src/container_base/lib/container_base.lib</ImportLibrary>
+      <ProgramDataBaseFile>E:/GitHub/vector/src/container_base/bin/container_base.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -149,10 +151,10 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="E:\GitHub\container_base\src\container_base.h" />
-    <ClInclude Include="E:\GitHub\container_base\src\iterator_base.h" />
-    <ClCompile Include="E:\GitHub\container_base\src\main.cpp" />
-    <ClInclude Include="E:\GitHub\container_base\src\test\testContainer.hpp" />
+    <ClInclude Include="E:\GitHub\vector\src\container_base\src\container_base.h" />
+    <ClInclude Include="E:\GitHub\vector\src\container_base\src\iterator_base.h" />
+    <ClCompile Include="E:\GitHub\vector\src\container_base\src\main.cpp" />
+    <ClInclude Include="E:\GitHub\vector\src\container_base\src\test\testContainer.hpp" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

@@ -48,15 +48,15 @@ class iterator_base
 
     virtual ~iterator_base() = default;
 
-    iterator_base(PointerType pointer_) : m_ptr(pointer_)
+    explicit iterator_base(PointerType pointer_) : m_ptr(pointer_)
     {
     }
 
     /*------------------------------------*/
     /* Memory operators */
-    [[nodiscard]] ReferenceType     value() const noexcept;
-    [[nodiscard]] PointerType       ptr() noexcept;
-    [[nodiscard]] const_PointerType ptr() const noexcept;
+    [[nodiscard]] const_ReferenceType value() const;
+    [[nodiscard]] PointerType         ptr() noexcept;
+    [[nodiscard]] const_PointerType   ptr() const noexcept;
 
     [[nodiscard]] ReferenceType       operator*();
     [[nodiscard]] const_ReferenceType operator*() const;
@@ -71,16 +71,16 @@ class iterator_base
     iterator_base& operator=(const_PointerType other_) noexcept;
     iterator_base& operator=(const_PointerTypeRef other_) noexcept;
 
-    [[nodiscard]] virtual IteratorType operator+(DifferenceType rhs_) const;
-    virtual IteratorType               operator++();
-    virtual const IteratorType         operator++(int);
-    virtual IteratorType               operator+=(DifferenceType rhs_);
+    [[nodiscard]] virtual IteratorType operator+(DifferenceType rhs_) const noexcept;
+    virtual IteratorType               operator++() noexcept;
+    virtual const IteratorType         operator++(int) noexcept;
+    virtual IteratorType               operator+=(DifferenceType rhs_) noexcept;
 
-    [[nodiscard]] virtual IteratorType   operator-(DifferenceType rhs_) const;
-    [[nodiscard]] virtual DifferenceType operator-(IteratorType rhs_) const;
-    virtual IteratorType                 operator--();
-    virtual const IteratorType           operator--(int);
-    virtual IteratorType                 operator-=(DifferenceType rhs_);
+    [[nodiscard]] virtual IteratorType   operator-(DifferenceType rhs_) const noexcept;
+    [[nodiscard]] virtual DifferenceType operator-(IteratorType rhs_) const noexcept;
+    virtual IteratorType                 operator--() noexcept;
+    virtual const IteratorType           operator--(int) noexcept;
+    virtual IteratorType                 operator-=(DifferenceType rhs_) noexcept;
 
     /*------------------------------------*/
     /* Comparison operators */
@@ -118,8 +118,8 @@ class iterator_base
 /* Memory operators */
 
 template<typename ItemType>
-[[nodiscard]] inline typename iterator_base<ItemType>::ReferenceType
-iterator_base<ItemType>::value() const noexcept
+[[nodiscard]] inline typename iterator_base<ItemType>::const_ReferenceType
+iterator_base<ItemType>::value() const
 {
     return *m_ptr;
 }
@@ -158,7 +158,7 @@ iterator_base<ItemType>::operator->()
 }
 
 template<typename ItemType>
-[[nodiscard]] inline typename iterator_base<ItemType>::const_PointerType 
+[[nodiscard]] inline typename iterator_base<ItemType>::const_PointerType
 iterator_base<ItemType>::operator->() const
 {
     return m_ptr;
@@ -210,7 +210,7 @@ iterator_base<ItemType>::operator=(const iterator_base& copy_) noexcept
 
 template<typename ItemType>
 [[nodiscard]] inline typename iterator_base<ItemType>::IteratorType
-iterator_base<ItemType>::operator+(DifferenceType rhs_) const
+iterator_base<ItemType>::operator+(DifferenceType rhs_) const noexcept
 {
     PointerType ptr = m_ptr + rhs_;
     return IteratorType(ptr);
@@ -218,14 +218,14 @@ iterator_base<ItemType>::operator+(DifferenceType rhs_) const
 
 template<typename ItemType>
 inline typename iterator_base<ItemType>::IteratorType
-iterator_base<ItemType>::operator++()
+iterator_base<ItemType>::operator++() noexcept
 {
     ++m_ptr;
     return IteratorType(*this);
 }
 template<typename ItemType>
 inline const iterator_base<ItemType>
-iterator_base<ItemType>::operator++(int)
+iterator_base<ItemType>::operator++(int) noexcept
 {
     IteratorType temp = IteratorType(*this);
     m_ptr++;
@@ -234,7 +234,7 @@ iterator_base<ItemType>::operator++(int)
 
 template<typename ItemType>
 inline typename iterator_base<ItemType>::IteratorType
-iterator_base<ItemType>::operator+=(DifferenceType rhs_)
+iterator_base<ItemType>::operator+=(DifferenceType rhs_) noexcept
 {
     m_ptr += rhs_;
     return IteratorType(*this);
@@ -242,7 +242,7 @@ iterator_base<ItemType>::operator+=(DifferenceType rhs_)
 
 template<typename ItemType>
 [[nodiscard]] inline typename iterator_base<ItemType>::IteratorType
-iterator_base<ItemType>::operator-(DifferenceType rhs_) const
+iterator_base<ItemType>::operator-(DifferenceType rhs_) const noexcept
 {
     PointerType ptr = m_ptr - rhs_;
     return IteratorType(ptr);
@@ -257,14 +257,14 @@ iterator_base<ItemType>::operator-(IteratorType rhs_) const
 
 template<typename ItemType>
 inline typename iterator_base<ItemType>::IteratorType
-iterator_base<ItemType>::operator--()
+iterator_base<ItemType>::operator--() noexcept
 {
     --m_ptr;
     return IteratorType(*this);
 }
 template<typename ItemType>
 inline const iterator_base<ItemType>
-iterator_base<ItemType>::operator--(int)
+iterator_base<ItemType>::operator--(int) noexcept
 {
     const IteratorType temp = IteratorType(*this);
     m_ptr--;
@@ -272,7 +272,7 @@ iterator_base<ItemType>::operator--(int)
 }
 template<typename ItemType>
 inline typename iterator_base<ItemType>::IteratorType
-iterator_base<ItemType>::operator-=(DifferenceType rhs_)
+iterator_base<ItemType>::operator-=(DifferenceType rhs_) noexcept
 {
     m_ptr -= rhs_;
     return IteratorType(*this);
