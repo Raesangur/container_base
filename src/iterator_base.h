@@ -249,7 +249,7 @@ iterator_base<ItemType>::operator-(DifferenceType rhs_) const noexcept
 }
 template<typename ItemType>
 [[nodiscard]] inline typename iterator_base<ItemType>::DifferenceType
-iterator_base<ItemType>::operator-(IteratorType rhs_) const
+iterator_base<ItemType>::operator-(IteratorType rhs_) const noexcept
 {
     DifferenceType ptr = m_ptr - rhs_.m_ptr;
     return ptr;

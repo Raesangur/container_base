@@ -34,8 +34,9 @@ class container_base
 
     /*------------------------------------*/
     /* Element accessors */
-    [[nodiscard]] virtual ItemType&       at(SizeType index_)       = 0;
-    [[nodiscard]] virtual const ItemType& at(SizeType index_) const = 0;
+    [[nodiscard]] virtual ItemType&       at(SizeType index_)                = 0;
+    [[nodiscard]] virtual const ItemType& at(SizeType index_) const          = 0;
+    [[nodiscard]] virtual IteratorType     iterator_at(DifferenceType index_) const = 0;
 
     [[nodiscard]] virtual ItemType&       front()       = 0;
     [[nodiscard]] virtual ItemType&       back()        = 0;
