@@ -15,6 +15,8 @@ class iterator_base
     using IteratorType       = iterator_base<ItemType>;
     using const_IteratorType = const iterator_base<ItemType>;
 
+    using ReverseIteratorType = IteratorType;   // For now!
+
     using SizeType       = std::size_t;
     using DifferenceType = std::ptrdiff_t;
 
