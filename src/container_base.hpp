@@ -47,7 +47,7 @@ class container_base
 
     /*********************************************************************************************/
     /* Type definitions ------------------------------------------------------------------------ */
-    public:
+public:
     using AllocatorTraits = std::allocator_traits<AllocatorType>;
     using SizeType        = std::size_t;
     using DifferenceType  = std::ptrdiff_t;
@@ -56,7 +56,7 @@ class container_base
 
     /*********************************************************************************************/
     /* Constructors ---------------------------------------------------------------------------- */
-    public:
+public:
     container_base() = default;
 
     container_base(const container_base& copy_) = default;
@@ -70,16 +70,16 @@ class container_base
 
     /*********************************************************************************************/
     /* Element accessors ----------------------------------------------------------------------- */
-    [[nodiscard]] virtual ItemType&       at(SizeType index_)                      = 0;
-    [[nodiscard]] virtual const ItemType& at(SizeType index_) const                = 0;
-    [[nodiscard]] virtual IteratorType    iterator_at(DifferenceType index_) const = 0;
+    [[nodiscard]] virtual ItemType&       at(SizeType index_);
+    [[nodiscard]] virtual const ItemType& at(SizeType index_) const;
+    [[nodiscard]] virtual IteratorType    iterator_at(DifferenceType index_) const;
 
-    [[nodiscard]] virtual ItemType&       front()       = 0;
-    [[nodiscard]] virtual ItemType&       back()        = 0;
-    [[nodiscard]] virtual const ItemType& front() const = 0;
-    [[nodiscard]] virtual const ItemType& back() const  = 0;
+    [[nodiscard]] virtual ItemType&       front();
+    [[nodiscard]] virtual ItemType&       back();
+    [[nodiscard]] virtual const ItemType& front() const;
+    [[nodiscard]] virtual const ItemType& back() const;
 
-    [[nodiscard]] virtual DifferenceType index_of(IteratorType iterator_) const = 0;
+    [[nodiscard]] virtual DifferenceType index_of(IteratorType iterator_) const;
 
 
     /*********************************************************************************************/
@@ -87,14 +87,14 @@ class container_base
     [[nodiscard]] virtual ItemType&       operator[](SizeType index_)       = 0;
     [[nodiscard]] virtual const ItemType& operator[](SizeType index_) const = 0;
 
-    [[nodiscard]] virtual bool operator==(const container_base& other_) const = 0;
-    [[nodiscard]] virtual bool operator!=(const container_base& other_) const = 0;
-    [[nodiscard]] virtual bool operator<(const container_base& other_) const  = 0;
-    [[nodiscard]] virtual bool operator>(const container_base& other_) const  = 0;
-    [[nodiscard]] virtual bool operator<=(const container_base& other_) const = 0;
-    [[nodiscard]] virtual bool operator>=(const container_base& other_) const = 0;
+    [[nodiscard]] virtual bool operator==(const container_base& other_) const;
+    [[nodiscard]] virtual bool operator!=(const container_base& other_) const;
+    [[nodiscard]] virtual bool operator<(const container_base& other_) const;
+    [[nodiscard]] virtual bool operator>(const container_base& other_) const;
+    [[nodiscard]] virtual bool operator<=(const container_base& other_) const;
+    [[nodiscard]] virtual bool operator>=(const container_base& other_) const;
 #ifdef __cpp_impl_three_way_comparison
-    [[nodiscard]] virtual std::strong_ordering operator<=>(const container_base& other_) const = 0;
+    [[nodiscard]] virtual std::strong_ordering operator<=>(const container_base& other_) const;
 #endif
 
 
@@ -126,11 +126,24 @@ class container_base
 
 
     /*********************************************************************************************/
+    /* Private methods ------------------------------------------------------------------------- */
+protected:
+    constexpr virtual void check_if_valid(IteratorType iterator_) const;
+
+    /*********************************************************************************************/
     /* Variables ------------------------------------------------------------------------------- */
-    protected:
+protected:
     IteratorType  m_beginIterator = IteratorType(nullptr);
     IteratorType  m_endIterator   = IteratorType(nullptr);
-    AllocatorType m_allocator {};
+    AllocatorType m_allocator{};
+
+    constexpr static const bool container_safeness = true;
 };
 
 }        // namespace pel
+
+
+#include "./container_base.inl"
+
+/*************************************************************************************************/
+/* ----- END OF FILE ----- */
