@@ -45,6 +45,7 @@ class container_base
     static_assert(std::is_same_v<ItemType, typename AllocatorType::value_type>,
                   "Allocator must match element type");
 
+
     /*********************************************************************************************/
     /* Type definitions ------------------------------------------------------------------------ */
 public:
@@ -57,7 +58,9 @@ public:
     /*********************************************************************************************/
     /* Constructors ---------------------------------------------------------------------------- */
 public:
-    container_base() = default;
+    container_base(const AllocatorType& alloc_ = AllocatorType{}) : m_allocator{alloc_}
+    {
+    }
 
     container_base(const container_base& copy_) = default;
     container_base& operator=(const container_base& copy_) = default;
@@ -74,10 +77,10 @@ public:
     [[nodiscard]] virtual const ItemType& at(SizeType index_) const;
     [[nodiscard]] virtual IteratorType    iterator_at(DifferenceType index_) const;
 
-    [[nodiscard]] virtual ItemType&       front();
-    [[nodiscard]] virtual ItemType&       back();
-    [[nodiscard]] virtual const ItemType& front() const;
-    [[nodiscard]] virtual const ItemType& back() const;
+    [[nodiscard]] ItemType&       front();
+    [[nodiscard]] ItemType&       back();
+    [[nodiscard]] const ItemType& front() const;
+    [[nodiscard]] const ItemType& back() const;
 
     [[nodiscard]] virtual DifferenceType index_of(IteratorType iterator_) const;
 
@@ -87,37 +90,27 @@ public:
     [[nodiscard]] virtual ItemType&       operator[](SizeType index_)       = 0;
     [[nodiscard]] virtual const ItemType& operator[](SizeType index_) const = 0;
 
-    [[nodiscard]] virtual bool operator==(const container_base& other_) const;
-    [[nodiscard]] virtual bool operator!=(const container_base& other_) const;
-    [[nodiscard]] virtual bool operator<(const container_base& other_) const;
-    [[nodiscard]] virtual bool operator>(const container_base& other_) const;
-    [[nodiscard]] virtual bool operator<=(const container_base& other_) const;
-    [[nodiscard]] virtual bool operator>=(const container_base& other_) const;
-#ifdef __cpp_impl_three_way_comparison
-    [[nodiscard]] virtual std::strong_ordering operator<=>(const container_base& other_) const;
-#endif
-
 
     /*********************************************************************************************/
     /* Iterators ------------------------------------------------------------------------------- */
-    [[nodiscard]] virtual IteratorType        begin() const noexcept   = 0;
-    [[nodiscard]] virtual IteratorType        end() const noexcept     = 0;
-    [[nodiscard]] virtual const IteratorType  cbegin() const noexcept  = 0;
-    [[nodiscard]] virtual const IteratorType  cend() const noexcept    = 0;
-    [[nodiscard]] virtual RIteratorType       rbegin() const noexcept  = 0;
-    [[nodiscard]] virtual RIteratorType       rend() const noexcept    = 0;
-    [[nodiscard]] virtual const RIteratorType crbegin() const noexcept = 0;
-    [[nodiscard]] virtual const RIteratorType crend() const noexcept   = 0;
+    [[nodiscard]] IteratorType        begin() const noexcept;
+    [[nodiscard]] IteratorType        end() const noexcept;
+    [[nodiscard]] const IteratorType  cbegin() const noexcept;
+    [[nodiscard]] const IteratorType  cend() const noexcept;
+    [[nodiscard]] RIteratorType       rbegin() const noexcept;
+    [[nodiscard]] RIteratorType       rend() const noexcept;
+    [[nodiscard]] const RIteratorType crbegin() const noexcept;
+    [[nodiscard]] const RIteratorType crend() const noexcept;
 
 
     /*********************************************************************************************/
     /* Memory ---------------------------------------------------------------------------------- */
-    [[nodiscard]] virtual SizeType             length() const noexcept        = 0;
-    [[nodiscard]] virtual bool                 is_empty() const noexcept      = 0;
-    [[nodiscard]] virtual bool                 is_not_empty() const noexcept  = 0;
-    [[nodiscard]] virtual const AllocatorType& get_allocator() const noexcept = 0;
+    [[nodiscard]] SizeType             length() const noexcept;
+    [[nodiscard]] bool                 is_empty() const noexcept;
+    [[nodiscard]] bool                 is_not_empty() const noexcept;
+    [[nodiscard]] const AllocatorType& get_allocator() const noexcept;
 
-    virtual void clear() = 0;
+    void clear();
 
 
     /*********************************************************************************************/
@@ -130,6 +123,7 @@ public:
 protected:
     constexpr virtual void check_if_valid(IteratorType iterator_) const;
 
+
     /*********************************************************************************************/
     /* Variables ------------------------------------------------------------------------------- */
 protected:
@@ -140,10 +134,55 @@ protected:
     constexpr static const bool container_safeness = true;
 };
 
+/* clang-format off */
+#define CONTAINER_BASE_OPERATOR_TEMPLATE_DECLARATION__                                             \
+        typename ItemType,                                                                         \
+        typename FirstIteratorType   = typename pel::iterator_base<ItemType>,                      \
+        typename SecondIteratorType  = typename pel::iterator_base<ItemType>,                      \
+        typename FirstAllocatorType  = std::allocator<ItemType>,                                   \
+        typename SecondAllocatorType = std::allocator<ItemType>
+
+#define CONTAINER_BASE_OPERATOR_TEMPLATE_DEFINITION__                                              \
+        typename ItemType,                                                                         \
+        typename FirstIteratorType,                                                                \
+        typename SecondIteratorType,                                                               \
+        typename FirstAllocatorType,                                                               \
+        typename SecondAllocatorType                                         
+
+#define CONTAINER_BASE_OPERATOR_ARGUMENTS__                                                        \
+        const container_base<ItemType, FirstIteratorType, FirstAllocatorType>&   lhs_,             \
+        const container_base<ItemType, SecondIteratorType, SecondAllocatorType>& rhs_
+/* clang-format off */
+
+template<CONTAINER_BASE_OPERATOR_TEMPLATE_DECLARATION__>
+[[nodiscard]] bool operator==(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
+template<CONTAINER_BASE_OPERATOR_TEMPLATE_DECLARATION__>
+[[nodiscard]] bool operator!=(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
+template<CONTAINER_BASE_OPERATOR_TEMPLATE_DECLARATION__>
+[[nodiscard]] bool operator<(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
+template<CONTAINER_BASE_OPERATOR_TEMPLATE_DECLARATION__>
+[[nodiscard]] bool operator>(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
+template<CONTAINER_BASE_OPERATOR_TEMPLATE_DECLARATION__>
+[[nodiscard]] bool operator<=(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
+template<CONTAINER_BASE_OPERATOR_TEMPLATE_DECLARATION__>
+[[nodiscard]] bool operator>=(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
+#ifdef __cpp_impl_three_way_comparison
+template<CONTAINER_BASE_OPERATOR_TEMPLATE_DECLARATION__>
+[[nodiscard]] std::strong_ordering operator<=>(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
+#endif
+
+
 }        // namespace pel
 
-
 #include "./container_base.inl"
+
+
+/*************************************************************************************************/
+/* Undefines ----------------------------------------------------------------------------------- */
+#undef CONTAINER_BASE_OPERATOR_TEMPLATE_DECLARATION__
+#undef CONTAINER_BASE_OPERATOR_TEMPLATE_DEFINITION__
+#undef CONTAINER_BASE_OPERATOR_ARGUMENTS__
+
 
 /*************************************************************************************************/
 /* ----- END OF FILE ----- */
