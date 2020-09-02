@@ -87,8 +87,8 @@ public:
 
     /*********************************************************************************************/
     /* Operator overloads ---------------------------------------------------------------------- */
-    [[nodiscard]] virtual ItemType&       operator[](SizeType index_)       = 0;
-    [[nodiscard]] virtual const ItemType& operator[](SizeType index_) const = 0;
+    [[nodiscard]] virtual ItemType&       operator[](SizeType index_);
+    [[nodiscard]] virtual const ItemType& operator[](SizeType index_) const;
 
 
     /*********************************************************************************************/
@@ -122,6 +122,9 @@ public:
     /* Private methods ------------------------------------------------------------------------- */
 protected:
     constexpr virtual void check_if_valid(IteratorType iterator_) const;
+
+    constexpr void add_size(SizeType addedLength_);
+    constexpr void change_size(SizeType newLength_);
 
 
     /*********************************************************************************************/

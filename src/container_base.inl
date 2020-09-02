@@ -225,6 +225,60 @@ CONTAINER_BASE_CLASS_SCOPE__::index_of(IteratorType iterator_) const
 
 /**
  **************************************************************************************************
+ * \brief       Overload of the brackets[] operator to access an element at a specific index.
+ *
+ * \param       index_: Index of the element to access.
+ *
+ * \retval      ItemType&: Reference to the element at the index.
+ *
+ * \throws      std::length_error("Index out of range")
+ *              If the index is out of the container's length.
+ *************************************************************************************************/
+template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
+[[nodiscard]] inline ItemType&
+CONTAINER_BASE_CLASS_SCOPE__::operator[](SizeType index_)
+{
+    if constexpr(container_safeness == true)
+    {
+        if(index_ >= length())
+        {
+            throw std::length_error("Index out of range");
+        }
+    }
+
+    return begin()[index_];
+}
+
+
+/**
+ **************************************************************************************************
+ * \brief       Overload of the brackets[] operator to access a const element at a specific index.
+ *
+ * \param       index_: Index of the element to access.
+ *
+ * \retval      ItemType&: Const reference to the element at the index.
+ *
+ * \throws      std::length_error("Index out of range")
+ *              If the index is out of the container's length.
+ *************************************************************************************************/
+template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
+[[nodiscard]] inline const ItemType&
+CONTAINER_BASE_CLASS_SCOPE__::operator[](SizeType index_) const
+{
+    if constexpr(container_safeness == true)
+    {
+        if(index_ >= length())
+        {
+            throw std::length_error("Index out of range!");
+        }
+    }
+
+    return begin()[index_];
+}
+
+
+/**
+ **************************************************************************************************
  * \brief       Overload of the equality == operator to compare the values of two containers.
  *
  * \param       lhs: The container on the left side of the operator
@@ -588,7 +642,34 @@ CONTAINER_BASE_CLASS_SCOPE__::check_if_valid(IteratorType iterator_) const
         }
     }
 }
-}        // namespace pel
+
+
+/**
+ **************************************************************************************************
+ * \brief       Add a number of elements to the current length of the vector.
+ *
+ * \param       addedLength_: Numbers of elements to add to the current length.
+ *************************************************************************************************/
+template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
+constexpr inline void
+CONTAINER_BASE_CLASS_SCOPE__::add_size(SizeType addedLength_)
+{
+    change_size(length() + addedLength_);
+}
+
+
+/**
+ **************************************************************************************************
+ * \brief       Change the current length (in elements) of the container.
+ *
+ * \param       newLength_: New length (in elements) of the container.
+ *************************************************************************************************/
+template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
+constexpr inline void
+CONTAINER_BASE_CLASS_SCOPE__::change_size(SizeType newLength_)
+{
+    m_endIterator = IteratorType(&(begin()[newLength_]));
+}
 
 
 /*************************************************************************************************/
@@ -597,6 +678,9 @@ CONTAINER_BASE_CLASS_SCOPE__::check_if_valid(IteratorType iterator_) const
 #undef CONTAINER_BASE_CLASS_SCOPE__
 
 
+}        // namespace pel
+
+         
 /*************************************************************************************************/
 /* END OF FILE --------------------------------------------------------------------------------- */
 /*************************************************************************************************/
