@@ -1,5 +1,7 @@
 #pragma once
-#include "../container_base.h"
+#include "../container_base.hpp"
+
+#ifdef CONTAINER_TEST
 
 namespace pel
 {
@@ -124,3 +126,5 @@ class testContainer : container_base<ItemType>
     IteratorType m_end   = IteratorType{nullptr};
 };
 }        // namespace pel
+
+#endif

@@ -15,6 +15,8 @@ class iterator_base
     using IteratorType       = iterator_base<ItemType>;
     using const_IteratorType = const iterator_base<ItemType>;
 
+    using ReverseIteratorType = IteratorType;   // For now!
+
     using SizeType       = std::size_t;
     using DifferenceType = std::ptrdiff_t;
 
@@ -41,7 +43,7 @@ class iterator_base
     iterator_base() noexcept = default;
 
     iterator_base(const iterator_base& copy_) noexcept = default;
-    iterator_base& operator=(const iterator_base& copy_) noexcept;
+    iterator_base& operator                            =(const iterator_base& copy_) noexcept;
 
     iterator_base(iterator_base&& move_) noexcept = default;
     iterator_base& operator=(iterator_base&& move_) noexcept = default;
@@ -55,6 +57,7 @@ class iterator_base
     /*------------------------------------*/
     /* Memory operators */
     [[nodiscard]] const_ReferenceType value() const;
+    [[nodiscard]] ReferenceType       value();
     [[nodiscard]] PointerType         ptr() noexcept;
     [[nodiscard]] const_PointerType   ptr() const noexcept;
 
@@ -120,6 +123,13 @@ class iterator_base
 template<typename ItemType>
 [[nodiscard]] inline typename iterator_base<ItemType>::const_ReferenceType
 iterator_base<ItemType>::value() const
+{
+    return *m_ptr;
+}
+
+template<typename ItemType>
+[[nodiscard]] inline typename iterator_base<ItemType>::ReferenceType
+iterator_base<ItemType>::value()
 {
     return *m_ptr;
 }
@@ -249,7 +259,7 @@ iterator_base<ItemType>::operator-(DifferenceType rhs_) const noexcept
 }
 template<typename ItemType>
 [[nodiscard]] inline typename iterator_base<ItemType>::DifferenceType
-iterator_base<ItemType>::operator-(IteratorType rhs_) const
+iterator_base<ItemType>::operator-(IteratorType rhs_) const noexcept
 {
     DifferenceType ptr = m_ptr - rhs_.m_ptr;
     return ptr;
