@@ -58,59 +58,53 @@ public:
     /*********************************************************************************************/
     /* Constructors ---------------------------------------------------------------------------- */
 public:
-    container_base(const AllocatorType& alloc_ = AllocatorType{}) : m_allocator{alloc_}
+    constexpr container_base(const AllocatorType& alloc_ = AllocatorType{}) : m_allocator{alloc_}
     {
     }
-
-    container_base(const container_base& copy_) = default;
-    container_base& operator=(const container_base& copy_) = default;
-
-    container_base(container_base&& move_) noexcept = default;
-    container_base& operator=(container_base&& move_) noexcept = default;
 
     virtual ~container_base() = default;
 
 
     /*********************************************************************************************/
     /* Element accessors ----------------------------------------------------------------------- */
-    [[nodiscard]] virtual ItemType&       at(SizeType index_);
-    [[nodiscard]] virtual const ItemType& at(SizeType index_) const;
-    [[nodiscard]] virtual IteratorType    iterator_at(DifferenceType index_) const;
+    [[nodiscard]] constexpr ItemType&       at(SizeType index_);
+    [[nodiscard]] constexpr const ItemType& at(SizeType index_) const;
+    [[nodiscard]] constexpr IteratorType    iterator_at(DifferenceType index_) const;
 
-    [[nodiscard]] ItemType&       front();
-    [[nodiscard]] ItemType&       back();
-    [[nodiscard]] const ItemType& front() const;
-    [[nodiscard]] const ItemType& back() const;
+    [[nodiscard]] constexpr ItemType&       front();
+    [[nodiscard]] constexpr ItemType&       back();
+    [[nodiscard]] constexpr const ItemType& front() const;
+    [[nodiscard]] constexpr const ItemType& back() const;
 
-    [[nodiscard]] virtual DifferenceType index_of(IteratorType iterator_) const;
+    [[nodiscard]] constexpr virtual DifferenceType index_of(IteratorType iterator_) const;
 
 
     /*********************************************************************************************/
     /* Operator overloads ---------------------------------------------------------------------- */
-    [[nodiscard]] virtual ItemType&       operator[](SizeType index_);
-    [[nodiscard]] virtual const ItemType& operator[](SizeType index_) const;
+    [[nodiscard]] constexpr virtual ItemType&       operator[](SizeType index_);
+    [[nodiscard]] constexpr virtual const ItemType& operator[](SizeType index_) const;
 
 
     /*********************************************************************************************/
     /* Iterators ------------------------------------------------------------------------------- */
-    [[nodiscard]] IteratorType        begin() const noexcept;
-    [[nodiscard]] IteratorType        end() const noexcept;
-    [[nodiscard]] const IteratorType  cbegin() const noexcept;
-    [[nodiscard]] const IteratorType  cend() const noexcept;
-    [[nodiscard]] RIteratorType       rbegin() const noexcept;
-    [[nodiscard]] RIteratorType       rend() const noexcept;
-    [[nodiscard]] const RIteratorType crbegin() const noexcept;
-    [[nodiscard]] const RIteratorType crend() const noexcept;
+    [[nodiscard]] constexpr IteratorType        begin() const noexcept;
+    [[nodiscard]] constexpr IteratorType        end() const noexcept;
+    [[nodiscard]] constexpr const IteratorType  cbegin() const noexcept;
+    [[nodiscard]] constexpr const IteratorType  cend() const noexcept;
+    [[nodiscard]] constexpr RIteratorType       rbegin() const noexcept;
+    [[nodiscard]] constexpr RIteratorType       rend() const noexcept;
+    [[nodiscard]] constexpr const RIteratorType crbegin() const noexcept;
+    [[nodiscard]] constexpr const RIteratorType crend() const noexcept;
 
 
     /*********************************************************************************************/
     /* Memory ---------------------------------------------------------------------------------- */
-    [[nodiscard]] SizeType             length() const noexcept;
-    [[nodiscard]] bool                 is_empty() const noexcept;
-    [[nodiscard]] bool                 is_not_empty() const noexcept;
-    [[nodiscard]] const AllocatorType& get_allocator() const noexcept;
+    [[nodiscard]] constexpr SizeType             length() const noexcept;
+    [[nodiscard]] constexpr bool                 is_empty() const noexcept;
+    [[nodiscard]] constexpr bool                 is_not_empty() const noexcept;
+    [[nodiscard]] constexpr const AllocatorType& get_allocator() const noexcept;
 
-    void clear();
+    constexpr void clear();
 
 
     /*********************************************************************************************/
@@ -158,20 +152,20 @@ protected:
 /* clang-format off */
 
 template<CONTAINER_BASE_OPERATOR_TEMPLATE_DECLARATION__>
-[[nodiscard]] bool operator==(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
+[[nodiscard]] constexpr bool operator==(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
 template<CONTAINER_BASE_OPERATOR_TEMPLATE_DECLARATION__>
-[[nodiscard]] bool operator!=(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
+[[nodiscard]] constexpr bool operator!=(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
 template<CONTAINER_BASE_OPERATOR_TEMPLATE_DECLARATION__>
-[[nodiscard]] bool operator<(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
+[[nodiscard]] constexpr bool operator<(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
 template<CONTAINER_BASE_OPERATOR_TEMPLATE_DECLARATION__>
-[[nodiscard]] bool operator>(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
+[[nodiscard]] constexpr bool operator>(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
 template<CONTAINER_BASE_OPERATOR_TEMPLATE_DECLARATION__>
-[[nodiscard]] bool operator<=(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
+[[nodiscard]] constexpr bool operator<=(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
 template<CONTAINER_BASE_OPERATOR_TEMPLATE_DECLARATION__>
-[[nodiscard]] bool operator>=(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
+[[nodiscard]] constexpr bool operator>=(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
 #ifdef __cpp_impl_three_way_comparison
 template<CONTAINER_BASE_OPERATOR_TEMPLATE_DECLARATION__>
-[[nodiscard]] std::strong_ordering operator<=>(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
+[[nodiscard]] constexpr std::strong_ordering operator<=>(CONTAINER_BASE_OPERATOR_ARGUMENTS__);
 #endif
 
 

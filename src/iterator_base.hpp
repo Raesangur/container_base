@@ -8,14 +8,14 @@ namespace pel
 template<typename ItemType>
 class iterator_base
 {
-    public:
+public:
     /*------------------------------------*/
     /* Typenames */
 
     using IteratorType       = iterator_base<ItemType>;
     using const_IteratorType = const iterator_base<ItemType>;
 
-    using ReverseIteratorType = IteratorType;   // For now!
+    using ReverseIteratorType = IteratorType;        // For now!
 
     using SizeType       = std::size_t;
     using DifferenceType = std::ptrdiff_t;
@@ -43,7 +43,7 @@ class iterator_base
     constexpr iterator_base() noexcept = default;
 
     constexpr iterator_base(const iterator_base& copy_) noexcept = default;
-    constexpr iterator_base& operator                            =(const iterator_base& copy_) noexcept;
+    constexpr iterator_base& operator=(const iterator_base& copy_) noexcept;
 
     constexpr iterator_base(iterator_base&& move_) noexcept = default;
     constexpr iterator_base& operator=(iterator_base&& move_) noexcept = default;
@@ -105,12 +105,14 @@ class iterator_base
     [[nodiscard]] constexpr virtual bool operator<=(const_PointerType rhs_) const noexcept;
 
 #ifdef __cpp_impl_three_way_comparison
-    [[nodiscard]] constexpr virtual std::strong_ordering operator<=>(const_IteratorType rhs_) const noexcept;
-    [[nodiscard]] constexpr virtual std::strong_ordering operator<=>(const_PointerType rhs_) const noexcept;
+    [[nodiscard]] constexpr virtual std::strong_ordering operator<=>(
+      const_IteratorType rhs_) const noexcept;
+    [[nodiscard]] constexpr virtual std::strong_ordering operator<=>(
+      const_PointerType rhs_) const noexcept;
 #endif
 
     /*------------------------------------*/
-    private:
+protected:
     PointerType m_ptr = nullptr;
 };
 
@@ -148,8 +150,8 @@ iterator_base<ItemType>::ptr() const noexcept
 }
 
 template<typename ItemType>
-[[nodiscard]] constexpr inline
-  typename iterator_base<ItemType>::ReferenceType iterator_base<ItemType>::operator*()
+[[nodiscard]] constexpr inline typename iterator_base<ItemType>::ReferenceType
+iterator_base<ItemType>::operator*()
 {
     return *m_ptr;
 }

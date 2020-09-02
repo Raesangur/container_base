@@ -1,7 +1,7 @@
 #pragma once
 #include "../container_base.hpp"
 
-#ifdef CONTAINER_TEST
+/*
 
 namespace pel
 {
@@ -59,7 +59,6 @@ class testContainer : container_base<ItemType>
         return a;
     }
 
-    /* Operators */
     [[nodiscard]] inline ItemType&
     operator[](const SizeType index) override
     {
@@ -73,7 +72,6 @@ class testContainer : container_base<ItemType>
         return a;
     }
 
-    /* Iterators */
     [[nodiscard]] inline IteratorType
     begin() noexcept override
     {
@@ -95,7 +93,6 @@ class testContainer : container_base<ItemType>
         return m_end;
     }
 
-    /* Memory */
     [[nodiscard]] inline SizeType
     length() const noexcept override
     {
@@ -112,7 +109,6 @@ class testContainer : container_base<ItemType>
         return false;
     }
 
-    /* Misc */
     [[nodiscard]] inline std::string
     to_string() const override
     {
@@ -127,4 +123,4 @@ class testContainer : container_base<ItemType>
 };
 }        // namespace pel
 
-#endif
+*/
