@@ -58,7 +58,7 @@ namespace pel
  * \retval      ItemType&: Reference to the item at the specified index.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline ItemType&
+[[nodiscard]] constexpr inline ItemType&
 CONTAINER_BASE_CLASS_SCOPE__::at(SizeType index_)
 {
     return this->operator[](index_);
@@ -74,7 +74,7 @@ CONTAINER_BASE_CLASS_SCOPE__::at(SizeType index_)
  * \retval      ItemType&: Const reference to the item at the specified index.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline const ItemType&
+[[nodiscard]] constexpr inline const ItemType&
 CONTAINER_BASE_CLASS_SCOPE__::at(SizeType index_) const
 {
     return this->operator[](index_);
@@ -90,7 +90,7 @@ CONTAINER_BASE_CLASS_SCOPE__::at(SizeType index_) const
 * \retval      IteratorType: Iterator to the item at the specified index.
 *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline IteratorType
+[[nodiscard]] constexpr inline IteratorType
 CONTAINER_BASE_CLASS_SCOPE__::iterator_at(DifferenceType index_) const
 {
     return cbegin() + index_;
@@ -108,7 +108,7 @@ CONTAINER_BASE_CLASS_SCOPE__::iterator_at(DifferenceType index_) const
  *              element would cause errors.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline ItemType&
+[[nodiscard]] constexpr inline ItemType&
 CONTAINER_BASE_CLASS_SCOPE__::front()
 {
     if constexpr(container_safeness == true)
@@ -133,7 +133,7 @@ CONTAINER_BASE_CLASS_SCOPE__::front()
  *              element would cause errors.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline ItemType&
+[[nodiscard]] constexpr inline ItemType&
 CONTAINER_BASE_CLASS_SCOPE__::back()
 {
     if constexpr(container_safeness == true)
@@ -158,7 +158,7 @@ CONTAINER_BASE_CLASS_SCOPE__::back()
  *              element would cause errors.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline const ItemType&
+[[nodiscard]] constexpr inline const ItemType&
 CONTAINER_BASE_CLASS_SCOPE__::front() const
 {
     if constexpr(container_safeness == true)
@@ -183,7 +183,7 @@ CONTAINER_BASE_CLASS_SCOPE__::front() const
  *              element would cause errors.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline const ItemType&
+[[nodiscard]] constexpr inline const ItemType&
 CONTAINER_BASE_CLASS_SCOPE__::back() const
 {
     if constexpr(container_safeness == true)
@@ -206,7 +206,7 @@ CONTAINER_BASE_CLASS_SCOPE__::back() const
  * \retval      SizeType: index of the iterator.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline typename CONTAINER_BASE_CLASS_SCOPE__::DifferenceType
+[[nodiscard]] constexpr inline typename CONTAINER_BASE_CLASS_SCOPE__::DifferenceType
 CONTAINER_BASE_CLASS_SCOPE__::index_of(IteratorType iterator_) const
 {
     if constexpr(container_safeness == true)
@@ -235,7 +235,7 @@ CONTAINER_BASE_CLASS_SCOPE__::index_of(IteratorType iterator_) const
  *              If the index is out of the container's length.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline ItemType&
+[[nodiscard]] constexpr inline ItemType&
 CONTAINER_BASE_CLASS_SCOPE__::operator[](SizeType index_)
 {
     if constexpr(container_safeness == true)
@@ -262,7 +262,7 @@ CONTAINER_BASE_CLASS_SCOPE__::operator[](SizeType index_)
  *              If the index is out of the container's length.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline const ItemType&
+[[nodiscard]] constexpr inline const ItemType&
 CONTAINER_BASE_CLASS_SCOPE__::operator[](SizeType index_) const
 {
     if constexpr(container_safeness == true)
@@ -287,7 +287,7 @@ CONTAINER_BASE_CLASS_SCOPE__::operator[](SizeType index_) const
  * \retval      true if all the values within both containers are equal
  *************************************************************************************************/
 template<CONTAINER_BASE_OPERATOR_TEMPLATE_DEFINITION__>
-[[nodiscard]] inline bool operator==(CONTAINER_BASE_OPERATOR_ARGUMENTS__)
+[[nodiscard]] constexpr inline bool operator==(CONTAINER_BASE_OPERATOR_ARGUMENTS__)
 {
     bool isSameLength = lhs_.length() == rhs_.length();
     if(isSameLength == true)
@@ -308,7 +308,7 @@ template<CONTAINER_BASE_OPERATOR_TEMPLATE_DEFINITION__>
  * \retval      true if any value is different between the containers or if their size differ.
  *************************************************************************************************/
 template<CONTAINER_BASE_OPERATOR_TEMPLATE_DEFINITION__>
-[[nodiscard]] inline bool operator!=(CONTAINER_BASE_OPERATOR_ARGUMENTS__)
+[[nodiscard]] constexpr inline bool operator!=(CONTAINER_BASE_OPERATOR_ARGUMENTS__)
 {
     return !(lhs_ == rhs_);
 }
@@ -324,7 +324,7 @@ template<CONTAINER_BASE_OPERATOR_TEMPLATE_DEFINITION__>
  * \retval      true if this container is lexicographically less than the other.
  *************************************************************************************************/
 template<CONTAINER_BASE_OPERATOR_TEMPLATE_DEFINITION__>
-[[nodiscard]] inline bool operator<(CONTAINER_BASE_OPERATOR_ARGUMENTS__)
+[[nodiscard]] constexpr inline bool operator<(CONTAINER_BASE_OPERATOR_ARGUMENTS__)
 {
     bool isLess = std::lexicographical_compare(lhs_.begin(), lhs_.end(), rhs_.begin(), rhs_.end());
     return isLess;
@@ -341,7 +341,7 @@ template<CONTAINER_BASE_OPERATOR_TEMPLATE_DEFINITION__>
  * \retval      true if this container is lexicographically more than the other.
  *************************************************************************************************/
 template<CONTAINER_BASE_OPERATOR_TEMPLATE_DEFINITION__>
-[[nodiscard]] inline bool operator>(CONTAINER_BASE_OPERATOR_ARGUMENTS__)
+[[nodiscard]] constexpr inline bool operator>(CONTAINER_BASE_OPERATOR_ARGUMENTS__)
 {
     return rhs_ < lhs_;
 }
@@ -357,7 +357,7 @@ template<CONTAINER_BASE_OPERATOR_TEMPLATE_DEFINITION__>
  * \retval      true if this container is lexicographically less or equal to the other.
  *************************************************************************************************/
 template<CONTAINER_BASE_OPERATOR_TEMPLATE_DEFINITION__>
-[[nodiscard]] inline bool operator<=(CONTAINER_BASE_OPERATOR_ARGUMENTS__)
+[[nodiscard]] constexpr inline bool operator<=(CONTAINER_BASE_OPERATOR_ARGUMENTS__)
 {
     return !(rhs_ < lhs_);
 }
@@ -373,7 +373,7 @@ template<CONTAINER_BASE_OPERATOR_TEMPLATE_DEFINITION__>
  * \retval      true if this container is lexicographically more or equal to the other.
  *************************************************************************************************/
 template<CONTAINER_BASE_OPERATOR_TEMPLATE_DEFINITION__>
-[[nodiscard]] inline bool operator>=(CONTAINER_BASE_OPERATOR_ARGUMENTS__)
+[[nodiscard]] constexpr inline bool operator>=(CONTAINER_BASE_OPERATOR_ARGUMENTS__)
 {
     return !(lhs_ < rhs_);
 }
@@ -394,7 +394,7 @@ template<CONTAINER_BASE_OPERATOR_TEMPLATE_DEFINITION__>
  *************************************************************************************************/
 #ifdef __cpp_impl_three_way_comparison
 template<CONTAINER_BASE_OPERATOR_TEMPLATE_DEFINITION__>
-[[nodiscard]] inline std::strong_ordering operator<=>(CONTAINER_BASE_OPERATOR_ARGUMENTS__)
+[[nodiscard]] constexpr inline std::strong_ordering operator<=>(CONTAINER_BASE_OPERATOR_ARGUMENTS__)
 {
     if(lhs_ < rhs_)
     {
@@ -424,7 +424,7 @@ template<CONTAINER_BASE_OPERATOR_TEMPLATE_DEFINITION__>
  * \retval      IteratorType: Iterator to the start of the vector's memory.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline IteratorType
+[[nodiscard]] constexpr inline IteratorType
 CONTAINER_BASE_CLASS_SCOPE__::begin() const noexcept
 {
     return m_beginIterator;
@@ -441,7 +441,7 @@ CONTAINER_BASE_CLASS_SCOPE__::begin() const noexcept
  *              after the end of the memory.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline IteratorType
+[[nodiscard]] constexpr inline IteratorType
 CONTAINER_BASE_CLASS_SCOPE__::end() const noexcept
 {
     return m_endIterator;
@@ -455,7 +455,7 @@ CONTAINER_BASE_CLASS_SCOPE__::end() const noexcept
  * \retval      IteratorType: Const iterator to the start of the vector's memory.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline const IteratorType
+[[nodiscard]] constexpr inline const IteratorType
 CONTAINER_BASE_CLASS_SCOPE__::cbegin() const noexcept
 {
     return m_beginIterator;
@@ -469,7 +469,7 @@ CONTAINER_BASE_CLASS_SCOPE__::cbegin() const noexcept
  * \retval      IteratorType: Const iterator to the end of the vector's memory.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline const IteratorType
+[[nodiscard]] constexpr inline const IteratorType
 CONTAINER_BASE_CLASS_SCOPE__::cend() const noexcept
 {
     return m_endIterator;
@@ -484,7 +484,7 @@ CONTAINER_BASE_CLASS_SCOPE__::cend() const noexcept
  *                            (end - 1)
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline typename CONTAINER_BASE_CLASS_SCOPE__::RIteratorType
+[[nodiscard]] constexpr inline typename CONTAINER_BASE_CLASS_SCOPE__::RIteratorType
 CONTAINER_BASE_CLASS_SCOPE__::rbegin() const noexcept
 {
     return RIteratorType(end());
@@ -499,7 +499,7 @@ CONTAINER_BASE_CLASS_SCOPE__::rbegin() const noexcept
  *                            (begin - 1)
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline typename CONTAINER_BASE_CLASS_SCOPE__::RIteratorType
+[[nodiscard]] constexpr inline typename CONTAINER_BASE_CLASS_SCOPE__::RIteratorType
 CONTAINER_BASE_CLASS_SCOPE__::rend() const noexcept
 {
     return RIteratorType(begin());
@@ -514,7 +514,7 @@ CONTAINER_BASE_CLASS_SCOPE__::rend() const noexcept
  *                            (end - 1)
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline const typename CONTAINER_BASE_CLASS_SCOPE__::RIteratorType
+[[nodiscard]] constexpr inline const typename CONTAINER_BASE_CLASS_SCOPE__::RIteratorType
 CONTAINER_BASE_CLASS_SCOPE__::crbegin() const noexcept
 {
     return RIteratorType(end());
@@ -529,7 +529,7 @@ CONTAINER_BASE_CLASS_SCOPE__::crbegin() const noexcept
  *                            (begin - 1)
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline const typename CONTAINER_BASE_CLASS_SCOPE__::RIteratorType
+[[nodiscard]] constexpr inline const typename CONTAINER_BASE_CLASS_SCOPE__::RIteratorType
 CONTAINER_BASE_CLASS_SCOPE__::crend() const noexcept
 {
     return RIteratorType(begin());
@@ -547,7 +547,7 @@ CONTAINER_BASE_CLASS_SCOPE__::crend() const noexcept
  * \retval      SizeType: Number of elements of the container.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline typename CONTAINER_BASE_CLASS_SCOPE__::SizeType
+[[nodiscard]] constexpr inline typename CONTAINER_BASE_CLASS_SCOPE__::SizeType
 CONTAINER_BASE_CLASS_SCOPE__::length() const noexcept
 {
     DifferenceType diff = end() - begin();
@@ -563,7 +563,7 @@ CONTAINER_BASE_CLASS_SCOPE__::length() const noexcept
  *                    False if there are elements in the container.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline bool
+[[nodiscard]] constexpr inline bool
 CONTAINER_BASE_CLASS_SCOPE__::is_empty() const noexcept
 {
     return length() == 0;
@@ -578,7 +578,7 @@ CONTAINER_BASE_CLASS_SCOPE__::is_empty() const noexcept
  *                    False if there are not elements in the container.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline bool
+[[nodiscard]] constexpr inline bool
 CONTAINER_BASE_CLASS_SCOPE__::is_not_empty() const noexcept
 {
     return !is_empty();
@@ -591,7 +591,7 @@ CONTAINER_BASE_CLASS_SCOPE__::is_not_empty() const noexcept
  * \retval      AllocatorType&: The container's allocator
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-[[nodiscard]] const AllocatorType&
+[[nodiscard]] constexpr inline const AllocatorType&
 CONTAINER_BASE_CLASS_SCOPE__::get_allocator() const noexcept
 {
     return m_allocator;
@@ -603,7 +603,7 @@ CONTAINER_BASE_CLASS_SCOPE__::get_allocator() const noexcept
  * \brief       Destroy all elements currently in the container and set its length to 0.
  *************************************************************************************************/
 template<CONTAINER_BASE_TEMPLATE_DECLARATION__>
-inline void
+constexpr inline void
 CONTAINER_BASE_CLASS_SCOPE__::clear()
 {
     std::destroy(begin(), end());
